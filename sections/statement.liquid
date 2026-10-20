@@ -1,0 +1,25 @@
+<section class="stmt">
+  {%- if section.settings.eyebrow != blank -%}<span class="stmt__eyebrow mono-sm">{{ section.settings.eyebrow }}</span>{%- endif -%}
+  <h2 class="stmt__line" data-rv>{{ section.settings.line }}</h2>
+  {%- if section.settings.sub != blank -%}
+    <p class="stmt__sub mono-sm" data-rv="90">{{ section.settings.sub }}</p>
+  {%- endif -%}
+  {%- if section.settings.cta_text != blank -%}
+    <a href="{{ section.settings.cta_url | default: '#' }}" class="lnk" style="margin-top:1.6em">{{ section.settings.cta_text }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Statement",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Verande" },
+    { "type": "richtext", "id": "line", "label": "Statement line",
+      "default": "<p><em>Quiet</em> clothes for loud afternoons.</p>" },
+    { "type": "text", "id": "sub", "label": "Sub-line", "default": "No two runs are painted quite the same." },
+    { "type": "text", "id": "cta_text", "label": "Link text" },
+    { "type": "url", "id": "cta_url", "label": "Link URL" }
+  ],
+  "presets": [{ "name": "Statement" }]
+}
+{% endschema %}

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Verande",
+    "theme_version": "1.0.0",
+    "theme_author": "Built for Verande",
+    "theme_documentation_url": "https://shopify.dev",
+    "theme_support_url": "https://shopify.dev"
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      { "type": "color", "id": "color_bg",      "label": "Page background", "default": "#FAF6F0" },
+      { "type": "color", "id": "color_bg_alt",  "label": "Alternate background", "default": "#F2EBE1" },
+      { "type": "color", "id": "color_text",    "label": "Text", "default": "#1A1714" },
+      { "type": "color", "id": "color_muted",   "label": "Muted text", "default": "#7E756A" },
+      { "type": "color", "id": "color_line",    "label": "Lines and borders", "default": "#E2D6C5" },
+      { "type": "color", "id": "color_accent",  "label": "Accent", "default": "#A9714B",
+        "info": "Used for section numbers, italics and hover states." }
+    ]
+  },
+  {
+    "name": "Intro screen",
+    "settings": [
+      { "type": "checkbox", "id": "show_loader", "label": "Show the intro loading screen", "default": true,
+        "info": "Counts 00% to 100% then lifts away. Shown once per visit." },
+      { "type": "text", "id": "loader_word",  "label": "Word", "default": "Verande" },
+      { "type": "text", "id": "loader_left",  "label": "Bottom left", "default": "Colombo — Worldwide" },
+      { "type": "text", "id": "loader_right", "label": "Bottom right", "default": "Linen & Silk" }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      { "type": "select", "id": "price_style", "label": "Price style", "default": "technical",
+        "options": [
+          { "value": "technical", "label": "268.00_USD" },
+          { "value": "standard",  "label": "$268.00" }
+        ] }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "text", "id": "footer_blurb", "label": "Footer line",
+        "default": "Linen and silk, made in small batches in Colombo. Shipped worldwide." }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "text", "id": "social_instagram", "label": "Instagram URL" },
+      { "type": "text", "id": "social_pinterest", "label": "Pinterest URL" },
+      { "type": "text", "id": "social_tiktok",    "label": "TikTok URL" }
+    ]
+  }
+]

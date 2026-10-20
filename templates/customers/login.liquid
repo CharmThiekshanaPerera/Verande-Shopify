@@ -1,0 +1,14 @@
+<div class="page-head"><h1 class="page-head__t">{{ 'customer.login' | t }}</h1></div>
+<div class="wrap" style="max-width:420px;margin-inline:auto;padding-bottom:var(--sec)">
+  {% form 'customer_login' %}
+    {{ form.errors | default_errors }}
+    <span class="pdp__lbl">{{ 'customer.email' | t }}</span>
+    <div class="news__form" style="margin-bottom:2em"><input type="email" name="customer[email]" required></div>
+    <span class="pdp__lbl">{{ 'customer.password' | t }}</span>
+    <div class="news__form" style="margin-bottom:2.4em"><input type="password" name="customer[password]"></div>
+    <button type="submit" class="btn btn--block">{{ 'customer.login' | t }}</button>
+  {% endform %}
+  <p class="mono-sm center" style="margin-top:2em">
+    <a href="{{ routes.account_register_url }}" class="lnk">{{ 'customer.register' | t }}</a>
+  </p>
+</div>

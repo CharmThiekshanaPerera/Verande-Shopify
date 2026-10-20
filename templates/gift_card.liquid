@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ shop.name }} — Gift card</title>
+  {{ content_for_header }}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+  <div class="empty" style="min-height:100svh;display:grid;place-content:center;text-align:center">
+    <div class="page-head__t" style="margin-bottom:.3em">Gift card</div>
+    <p class="mono" style="margin-bottom:1.6em">{{ gift_card.balance | money }}</p>
+    {{ gift_card.qr_identifier }}
+    <p class="mono-sm" style="margin-top:1.6em">{{ gift_card.code | format_code }}</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<section class="gal" data-rv-group>
+  {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+    <div class="gal__head">
+      {%- if section.settings.eyebrow != blank -%}<span class="mono-sm gal__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="gal__h" data-rv>{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="gal__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.image != blank -%}
+        <div class="gal__item{% if block.settings.product != blank %} gal__item--link{% endif %}" data-rv {{ block.shopify_attributes }}>
+          {%- if block.settings.product != blank -%}
+            <a href="{{ block.settings.product.url }}" aria-label="{{ block.settings.product.title | escape }}"></a>
+          {%- endif -%}
+          {% render 'media', image: block.settings.image, tone: 2, label: 'Gallery photo', sizes: '(min-width: 860px) 32vw, 48vw' %}
+          {%- if block.settings.caption != blank -%}
+            <span class="gal__cap mono-sm">{{ block.settings.caption }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gallery",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In the wild" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "A few more, close up" }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "limit": 8,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "caption", "label": "Caption (optional)" },
+        { "type": "product", "id": "product", "label": "Product (optional)", "info": "Makes the photo clickable through to this product." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery",
+      "blocks": [
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

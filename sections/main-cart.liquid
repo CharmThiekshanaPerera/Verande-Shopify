@@ -1,0 +1,45 @@
+<div class="cart">
+  <h1 class="page-head__t" style="margin-bottom:clamp(24px,4vw,52px)">{{ 'cart.title' | t }}</h1>
+
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      {%- for item in cart.items -%}
+        <div class="cart__row">
+          <a href="{{ item.url }}" class="cart__thumb">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 260 }}" alt="{{ item.title | escape }}" width="260" height="347" loading="lazy">
+            {%- else -%}
+              <div class="ph ph-{{ forloop.index0 | modulo: 6 | plus: 1 }}" data-ph=""></div>
+            {%- endif -%}
+          </a>
+          <div>
+            <div class="cart__n"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
+            {%- unless item.variant.title contains 'Default' -%}
+              <div class="cart__v mono-sm par">{{ item.variant.title }}</div>
+            {%- endunless -%}
+            <div class="cart__qty">
+              <a href="{{ item.url_to_remove }}" aria-label="{{ 'cart.remove' | t }}">&times;</a>
+              <span>{{ item.quantity }}</span>
+            </div>
+          </div>
+          <div class="mono" style="text-align:right">{% render 'price', price: item.final_line_price %}</div>
+        </div>
+      {%- endfor -%}
+
+      <div class="cart__foot">
+        <div>
+          <span class="pdp__lbl">{{ 'cart.subtotal' | t }}</span>
+          <div class="cart__total">{% render 'price', price: cart.total_price %}</div>
+          <p class="mono-sm muted" style="margin-top:1em">{{ 'cart.taxes_note' | t }}</p>
+        </div>
+        <button type="submit" name="checkout" class="btn">{{ 'cart.checkout' | t }}</button>
+      </div>
+    </form>
+  {%- else -%}
+    <div class="empty">
+      <p class="mono" style="margin-bottom:2em">{{ 'cart.empty' | t }}</p>
+      <a href="{{ routes.all_products_collection_url }}" class="lnk">{{ 'cart.continue' | t }}</a>
+    </div>
+  {%- endif -%}
+</div>
+{% schema %}{ "name": "Cart" }{% endschema %}

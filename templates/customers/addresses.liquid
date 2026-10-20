@@ -1,0 +1,11 @@
+<div class="page-head"><h1 class="page-head__t">{{ 'customer.addresses' | t }}</h1></div>
+<div class="wrap" style="padding-bottom:var(--sec)">
+  {%- paginate customer.addresses by 6 -%}
+    {%- for address in customer.addresses -%}
+      <div class="cart__row" style="grid-template-columns:1fr auto">
+        <div class="rte">{{ address | format_address }}</div>
+      </div>
+    {%- endfor -%}
+  {%- endpaginate -%}
+  <p class="mono-sm" style="margin-top:2em"><a href="{{ routes.account_url }}" class="lnk">Back to account</a></p>
+</div>

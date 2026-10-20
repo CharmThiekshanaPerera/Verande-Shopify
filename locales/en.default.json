@@ -1,0 +1,58 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "search": "Search",
+    "account": "Account",
+    "bag": "Bag",
+    "drag": "Drag",
+    "click": "Click",
+    "see_all": "See all",
+    "newsletter_placeholder": "Email address",
+    "newsletter_submit": "Join",
+    "pagination": "Pagination"
+  },
+  "products": {
+    "add_to_bag": "Add to bag",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "size": "Size",
+    "quantity": "Quantity",
+    "sold_out_note": "This size is cut in small numbers and is currently unavailable.",
+    "you_may_also": "You may also like"
+  },
+  "cart": {
+    "title": "Your bag",
+    "empty": "Your bag is empty.",
+    "continue": "Continue shopping",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "note": "Order note",
+    "taxes_note": "Shipping and taxes calculated at checkout."
+  },
+  "collections": {
+    "empty": "Nothing here yet.",
+    "count": "pieces"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "What are you looking for?",
+    "results_for": "Results for",
+    "no_results": "No results. Try another word."
+  },
+  "customer": {
+    "login": "Log in",
+    "register": "Create account",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password",
+    "orders": "Orders",
+    "addresses": "Addresses"
+  },
+  "onboarding": {
+    "product_title": "Example piece",
+    "collection_title": "Example collection"
+  }
+}

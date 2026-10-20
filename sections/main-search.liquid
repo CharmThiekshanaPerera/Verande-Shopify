@@ -1,0 +1,35 @@
+<div class="page-head">
+  <h1 class="page-head__t">{{ 'search.title' | t }}</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="news__form" style="margin:2.4em 0 0;max-width:520px">
+    <input type="search" name="q" value="{{ search.terms | escape }}"
+           placeholder="{{ 'search.placeholder' | t }}" aria-label="{{ 'search.placeholder' | t }}">
+    <button type="submit">Go</button>
+  </form>
+</div>
+
+{%- if search.performed -%}
+  {%- if search.results_count > 0 -%}
+    <div class="coll__bar">
+      <span class="mono-sm">{{ 'search.results_for' | t }} “{{ search.terms }}” — {{ search.results_count }}</span>
+    </div>
+    {%- paginate search.results by 24 -%}
+      <div class="grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {%- assign tone = forloop.index0 | modulo: 6 | plus: 1 -%}
+            {% render 'product-card', product: item, tone: tone, grid: true, delay: 0 %}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pager">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="lnk">Prev</a>{%- endif -%}
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="lnk">Next</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- else -%}
+    <div class="empty"><p class="mono">{{ 'search.no_results' | t }}</p></div>
+  {%- endif -%}
+{%- endif -%}
+{% schema %}{ "name": "Search" }{% endschema %}

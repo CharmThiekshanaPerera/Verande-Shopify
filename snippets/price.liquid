@@ -1,0 +1,8 @@
+{%- liquid
+  assign p = price | default: 0
+-%}
+{%- if settings.price_style == 'technical' -%}
+  {{ p | money_without_currency }}_{{ cart.currency.iso_code }}
+{%- else -%}
+  {{ p | money }}
+{%- endif -%}

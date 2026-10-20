@@ -1,0 +1,37 @@
+<section class="news" style="max-width:640px;margin:0 auto;">
+  <h2 class="news__t" data-rv>{{ section.settings.title }}</h2>
+  <p class="news__p mono" data-rv="90">{{ section.settings.sub }}</p>
+  {% form 'contact', class: 'news__form-wrap' %}
+    {%- if form.posted_successfully? -%}
+      <p class="mono" style="color:var(--clay)">{{ section.settings.success }}</p>
+    {%- else -%}
+      {%- if form.errors -%}
+        <ul class="mono-sm" style="color:var(--clay);margin-bottom:1em">
+          {%- for field in form.errors -%}
+            <li>{{ form.errors.messages[field] }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <div class="news__form" style="flex-direction:column;align-items:stretch;gap:1em;">
+        <input type="text" name="contact[name]" placeholder="{{ 'general.contact_name' | t: default: 'Name' }}" aria-label="Name" value="{% if form.name %}{{ form.name }}{% endif %}">
+        <input type="email" name="contact[email]" required placeholder="{{ 'general.contact_email' | t: default: 'Email' }}" aria-label="Email" value="{% if form.email %}{{ form.email }}{% endif %}">
+        <input type="tel" name="contact[phone]" placeholder="{{ 'general.contact_phone' | t: default: 'Phone (optional)' }}" aria-label="Phone" value="{% if form.phone %}{{ form.phone }}{% endif %}">
+        <textarea name="contact[body]" rows="6" required placeholder="{{ 'general.contact_message' | t: default: 'Message' }}" aria-label="Message">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        <button type="submit">{{ section.settings.submit_label }}</button>
+      </div>
+    {%- endif -%}
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    { "type": "richtext", "id": "title", "label": "Heading", "default": "<p>Get in touch</p>" },
+    { "type": "text", "id": "sub", "label": "Sub-line", "default": "Questions about an order, a custom piece, or anything else — we read every message." },
+    { "type": "text", "id": "submit_label", "label": "Submit button label", "default": "Send message" },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thank you — your message has been sent. We'll reply soon." }
+  ],
+  "presets": [{ "name": "Contact form" }]
+}
+{% endschema %}

@@ -1,0 +1,18 @@
+<div class="page-head">
+  <h1 class="page-head__t">{{ order.name }}</h1>
+  <div class="page-head__meta"><span class="mono-sm">{{ order.created_at | date: '%d.%m.%Y' }}</span></div>
+</div>
+<div class="wrap" style="padding-bottom:var(--sec)">
+  {%- for line in order.line_items -%}
+    <div class="cart__row" style="grid-template-columns:1fr auto">
+      <div>
+        <div class="cart__n">{{ line.title }}</div>
+        <div class="cart__v mono-sm">&times; {{ line.quantity }}</div>
+      </div>
+      <div class="mono">{{ line.final_line_price | money }}</div>
+    </div>
+  {%- endfor -%}
+  <div class="cart__foot">
+    <div><span class="pdp__lbl">Total</span><div class="cart__total">{{ order.total_price | money }}</div></div>
+  </div>
+</div>

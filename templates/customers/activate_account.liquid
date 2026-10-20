@@ -1,0 +1,11 @@
+<div class="page-head"><h1 class="page-head__t">Activate account</h1></div>
+<div class="wrap" style="max-width:420px;margin-inline:auto;padding-bottom:var(--sec)">
+  {% form 'activate_customer_password' %}
+    {{ form.errors | default_errors }}
+    <span class="pdp__lbl">{{ 'customer.password' | t }}</span>
+    <div class="news__form" style="margin-bottom:1.6em"><input type="password" name="customer[password]"></div>
+    <span class="pdp__lbl">Confirm password</span>
+    <div class="news__form" style="margin-bottom:2.4em"><input type="password" name="customer[password_confirmation]"></div>
+    <button type="submit" class="btn btn--block">Activate</button>
+  {% endform %}
+</div>

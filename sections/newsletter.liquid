@@ -1,0 +1,33 @@
+<section class="news">
+  <h2 class="news__t" data-rv>{{ section.settings.title }}</h2>
+  <p class="news__p mono" data-rv="90">{{ section.settings.sub }}</p>
+  {% form 'customer', class: 'news__form-wrap' %}
+    {%- if form.posted_successfully? -%}
+      <p class="mono" style="color:var(--clay)">{{ section.settings.success }}</p>
+    {%- else -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="news__form">
+        <input type="email" name="contact[email]" required
+               placeholder="{{ 'general.newsletter_placeholder' | t }}"
+               aria-label="{{ 'general.newsletter_placeholder' | t }}">
+        <button type="submit">{{ 'general.newsletter_submit' | t }}</button>
+      </div>
+      {%- if form.errors -%}
+        <p class="mono-sm" style="color:var(--clay);margin-top:1em">{{ form.errors.messages.email }}</p>
+      {%- endif -%}
+    {%- endif -%}
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "richtext", "id": "title", "label": "Heading",
+      "default": "<p>Small batches, <em>quietly announced</em></p>" },
+    { "type": "text", "id": "sub", "label": "Sub-line", "default": "A note when something new is cut. Nothing else." },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thank you — you're on the list." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

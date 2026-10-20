@@ -1,0 +1,61 @@
+<div class="page-head">
+  <h1 class="page-head__t">{{ collection.title }}</h1>
+  <div class="page-head__meta">
+    <span class="mono-sm">{{ collection.products_count }} {{ 'collections.count' | t }}</span>
+    {%- if collection.description != blank -%}
+      <span class="mono-sm" style="max-width:44ch">{{ collection.description | strip_html | truncate: 160 }}</span>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- assign quick_tags = 'linen,silk,maxi,midi' | split: ',' -%}
+{%- assign show_pills = false -%}
+{%- for qt in quick_tags -%}
+  {%- if collection.all_tags contains qt -%}{%- assign show_pills = true -%}{%- endif -%}
+{%- endfor -%}
+{%- if show_pills -%}
+  <div class="pill-row">
+    <a href="{{ collection.url }}" class="pill{% unless current_tags %} is-active{% endunless %}">All</a>
+    {%- for qt in quick_tags -%}
+      {%- if collection.all_tags contains qt -%}
+        <a href="{{ collection.url }}/{{ qt | handle }}" class="pill{% if current_tags contains qt %} is-active{% endif %}">{{ qt | capitalize }}</a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+<div class="coll__bar">
+  <span class="mono-sm brk">{{ collection.title }}</span>
+  <form method="get" id="sortForm">
+    <select name="sort_by" onchange="document.getElementById('sortForm').submit()" aria-label="Sort">
+      {%- for opt in collection.sort_options -%}
+        <option value="{{ opt.value }}" {% if opt.value == collection.sort_by or opt.value == collection.default_sort_by %}selected{% endif %}>{{ opt.name }}</option>
+      {%- endfor -%}
+    </select>
+  </form>
+</div>
+
+{%- paginate collection.products by 24 -%}
+  {%- if collection.products.size > 0 -%}
+    <div class="grid">
+      {%- for product in collection.products -%}
+        {%- assign tone = forloop.index0 | modulo: 6 | plus: 1 -%}
+        {% render 'product-card', product: product, tone: tone, grid: true, delay: 0 %}
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}
+      <nav class="pager">
+        {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}" class="lnk">Prev</a>{%- endif -%}
+        {%- for part in paginate.parts -%}
+          {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+          {%- else -%}<span class="is-cur">{{ part.title }}</span>{%- endif -%}
+        {%- endfor -%}
+        {%- if paginate.next -%}<a href="{{ paginate.next.url }}" class="lnk">Next</a>{%- endif -%}
+      </nav>
+    {%- endif -%}
+  {%- else -%}
+    <div class="empty"><p class="mono">{{ 'collections.empty' | t }}</p></div>
+  {%- endif -%}
+{%- endpaginate -%}
+
+{% schema %}{ "name": "Collection" }{% endschema %}

@@ -1,0 +1,186 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "wordmark": "Verande",
+        "tagline": "Dressed for the long afternoon. Linen and silk, cut in small batches.",
+        "image": "shopify://shop_images/indra-02.png",
+        "image_2": "shopify://shop_images/liya-02.png",
+        "image_3": "shopify://shop_images/rana-02.png",
+        "tone": 1,
+        "cta1_text": "See the collection",
+        "cta1_url": "/collections/dresses",
+        "cta2_text": "Our atelier",
+        "cta2_url": "#shopify-section-atelier",
+        "scroll_word": "Scroll"
+      }
+    },
+    "trust_bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "glyph": "✦", "heading": "Hand-painted", "text": "Small batch, cut in Colombo" } },
+        "t2": { "type": "item", "settings": { "glyph": "⊕", "heading": "Worldwide shipping", "text": "Europe, the Americas, Australia, the Middle East" } },
+        "t3": { "type": "item", "settings": { "glyph": "⊘", "heading": "Secure checkout", "text": "Encrypted payment, every order" } },
+        "t4": { "type": "item", "settings": { "glyph": "◉", "heading": "Made in Colombo", "text": "Sketched, painted and sewn locally" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": {}
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "w1": { "type": "word", "settings": { "text": "New Arrivals" } },
+        "w2": { "type": "word", "settings": { "text": "The Linen Edit" } },
+        "w3": { "type": "word", "settings": { "text": "Silk Series" } },
+        "w4": { "type": "word", "settings": { "text": "Small Batch" } },
+        "w5": { "type": "word", "settings": { "text": "Atelier Colombo" } },
+        "w6": { "type": "word", "settings": { "text": "Resort '26" } }
+      },
+      "block_order": ["w1", "w2", "w3", "w4", "w5", "w6"],
+      "settings": { "separator": "◆" }
+    },
+    "new_arrivals": {
+      "type": "featured-collection",
+      "settings": {
+        "number": "02.",
+        "heading": "New Arrivals",
+        "collection": "new-in",
+        "count": 8,
+        "auto_scroll": true,
+        "link_text": "See all",
+        "placeholder_names": "Anouk Linen Dress, Serai Shirt, Mara Wide Trouser, Veranda Silk Slip, Ostra Wrap Skirt, Alma Camisole, Rosa Linen Coat, Ceylon Two-Piece"
+      }
+    },
+    "campaign": {
+      "type": "campaign",
+      "blocks": {
+        "f1": { "type": "fact", "settings": { "text": "100% hand-painted" } },
+        "f2": { "type": "fact", "settings": { "text": "Runs of 12–20 pieces" } },
+        "f3": { "type": "fact", "settings": { "text": "Linen & mulberry silk" } }
+      },
+      "block_order": ["f1", "f2", "f3"],
+      "settings": {
+        "number": "03.",
+        "label": "Campaign",
+        "image": "shopify://shop_images/auri-04.png",
+        "image_2": "shopify://shop_images/auri-03.png",
+        "image_3": "shopify://shop_images/auri-05.png",
+        "statement": "<p>Cloth that <em>softens</em> with every wearing, cut for the hours between noon and dusk.</p>",
+        "details": "<p>Every piece begins as a sketch on cotton rag paper, hand-painted by one of a small circle of Colombo artists, then cut and sewn a few streets away. Nothing is printed, nothing is mass-produced — what you see on the model is the one original, repeated only a dozen or so times.</p>",
+        "sub": "The Linen Edit (Resort)",
+        "season": "SS_'26",
+        "cta_text": "See campaign",
+        "cta_url": "/collections/new-in"
+      }
+    },
+    "categories": {
+      "type": "category-rail",
+      "blocks": {
+        "c1": { "type": "cat", "settings": { "title": "New in", "collection": "new-in", "image": "shopify://shop_images/rana-01.png" } },
+        "c2": { "type": "cat", "settings": { "title": "Dresses", "collection": "dresses", "image": "shopify://shop_images/verande-nilu-01.png" } },
+        "c3": { "type": "cat", "settings": { "title": "Linen", "collection": "dresses", "tag": "linen", "count_override": "7", "image": "shopify://shop_images/palma-01.png" } },
+        "c4": { "type": "cat", "settings": { "title": "Silk", "collection": "dresses", "tag": "silk", "count_override": "3", "image": "shopify://shop_images/amala-01.png" } },
+        "c5": { "type": "cat", "settings": { "title": "Shirts", "collection": "shirts" } },
+        "c6": { "type": "cat", "settings": { "title": "Maxi", "collection": "dresses", "tag": "maxi", "count_override": "6", "image": "shopify://shop_images/rana-03.png" } },
+        "c7": { "type": "cat", "settings": { "title": "Midi", "collection": "dresses", "tag": "midi", "count_override": "3", "image": "shopify://shop_images/vela-03.png" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7"],
+      "settings": { "number": "04.", "heading": "Categories", "link_text": "See all" }
+    },
+    "editorial": {
+      "type": "editorial",
+      "blocks": {
+        "m1": { "type": "mini", "settings": { "image": "shopify://shop_images/palma-02.png" } },
+        "m2": { "type": "mini", "settings": { "image": "shopify://shop_images/amala-04.png" } },
+        "m3": { "type": "mini", "settings": { "image": "shopify://shop_images/indra-04.png" } }
+      },
+      "block_order": ["m1", "m2", "m3"],
+      "settings": {
+        "image": "shopify://shop_images/mira-01.png",
+        "image_left": "shopify://shop_images/vela-01.png",
+        "image_right": "shopify://shop_images/kumudu-04.png",
+        "tone": 4,
+        "word_1": "Light",
+        "sub_1": "and air",
+        "note_1": "<p>Our pieces are made to <strong>soften</strong>, not to be replaced.</p>",
+        "small_image_1": "shopify://shop_images/verande-nilu-04.png",
+        "small_image_2": "shopify://shop_images/vela-05.png",
+        "small_image_3": "shopify://shop_images/mira-05.png",
+        "word_2": "Slow",
+        "sub_2": "by hand",
+        "note_2": "<p>Verande is cut in Colombo in runs of a few dozen — <strong>linen</strong> and <strong>silk</strong>, chosen for heat, for salt air, for the long way home.</p>",
+        "show_care": true
+      }
+    },
+    "gallery": {
+      "type": "gallery",
+      "blocks": {
+        "g1": { "type": "photo", "settings": { "image": "shopify://shop_images/liya-05.png", "caption": "Liya", "product": "liya-hand-painted-linen-dress" } },
+        "g2": { "type": "photo", "settings": { "image": "shopify://shop_images/auri-02.png", "caption": "Auri", "product": "auri-hand-painted-linen-dress" } },
+        "g3": { "type": "photo", "settings": { "image": "shopify://shop_images/palma-03.png", "caption": "Palma", "product": "palma-hand-painted-linen-dress" } },
+        "g4": { "type": "photo", "settings": { "image": "shopify://shop_images/rana-04.png", "caption": "Rana", "product": "rana-hand-painted-silk-dress" } },
+        "g5": { "type": "photo", "settings": { "image": "shopify://shop_images/verande-nilu-03.png", "caption": "Nilu", "product": "nilu-hand-painted-linen-dress" } },
+        "g6": { "type": "photo", "settings": { "image": "shopify://shop_images/indra-03.png", "caption": "Indra", "product": "indra-hand-painted-silk-dress" } }
+      },
+      "block_order": ["g1", "g2", "g3", "g4", "g5", "g6"],
+      "settings": { "eyebrow": "In the wild", "heading": "A few more, close up" }
+    },
+    "atelier": {
+      "type": "atelier",
+      "blocks": {
+        "a1": { "type": "fact", "settings": { "text": "Est. Colombo, 2022" } },
+        "a2": { "type": "fact", "settings": { "text": "Hand-finished, small batch" } },
+        "a3": { "type": "fact", "settings": { "text": "Linen & silk only" } }
+      },
+      "block_order": ["a1", "a2", "a3"],
+      "settings": {
+        "number": "06.",
+        "heading": "Atelier",
+        "image": "shopify://shop_images/liya-04.png",
+        "tone": 2,
+        "title": "<p>A house built for <em>warm weather</em>.</p>",
+        "body": "<p>We began with one shop in Colombo and a narrow idea: clothes for a climate that asks for very little. Everything is made close to home, in small batches, from cloth that behaves better the longer you keep it.</p>",
+        "body_2": "<p>Every dress passes through the same three hands: a painter, a cutter, a finisher — all working a short walk from each other. We'd rather make fewer pieces well than many pieces quickly, so a run rarely goes past twenty.</p>",
+        "cta_text": "Who we are",
+        "cta_url": "#shopify-section-film"
+      }
+    },
+    "film": {
+      "type": "film",
+      "blocks": {
+        "fl1": { "type": "fact", "settings": { "text": "Shot on location, Colombo" } },
+        "fl2": { "type": "fact", "settings": { "text": "SS '26 capsule" } }
+      },
+      "block_order": ["fl1", "fl2"],
+      "settings": {
+        "number": "07.",
+        "label": "Verande Film",
+        "image": "shopify://shop_images/amala-02.png",
+        "title": "<p>A house of <em>light</em></p>",
+        "body": "<p>Shot over one afternoon on a veranda outside Colombo. Cloth moving in the heat, the way it actually falls — no styling, no straightening, nothing pressed.</p>",
+        "body_2": "<p>No two runs are painted quite the same — a slower way to dress, in a climate that rewards slowing down.</p>",
+        "cta_text": "",
+        "play_word": ""
+      }
+    },
+    "statement": {
+      "type": "statement",
+      "settings": {
+        "eyebrow": "Verande",
+        "line": "<p><em>Quiet</em> clothes for loud afternoons.</p>",
+        "sub": "No two runs are painted quite the same.",
+        "cta_text": ""
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "<p>Small batches, <em>quietly announced</em></p>",
+        "sub": "A note when something new is cut. Nothing else.",
+        "success": "Thank you — you're on the list."
+      }
+    }
+  },
+  "order": ["hero", "trust_bar", "marquee", "new_arrivals", "campaign", "categories", "editorial", "gallery", "atelier", "film", "statement", "newsletter"]
+}

@@ -1,0 +1,129 @@
+{%- liquid
+  assign p = product
+  assign single = false
+  if p.options.size == 1
+    assign single = true
+  endif
+-%}
+<div class="pdp" data-pdp>
+  <div class="pdp__gallery">
+    {%- if p.media.size > 0 -%}
+      {%- for m in p.media -%}
+        <div class="pdp__shot">
+          <img src="{{ m.preview_image | image_url: width: 1400 }}"
+               srcset="{{ m.preview_image | image_url: width: 600 }} 600w, {{ m.preview_image | image_url: width: 1000 }} 1000w, {{ m.preview_image | image_url: width: 1500 }} 1500w"
+               sizes="(max-width:880px) 100vw, 55vw"
+               alt="{{ m.alt | escape }}" width="{{ m.preview_image.width }}" height="{{ m.preview_image.height }}"
+               loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..2) -%}
+        <div class="pdp__shot"><div class="ph ph-{{ forloop.index }}" data-ph="{{ p.title | escape }}"></div></div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div class="pdp__info">
+    <div class="pdp__crumb mono-sm">
+      <a href="{{ routes.root_url }}">Verande</a> —
+      {%- if collection %} <a href="{{ collection.url }}">{{ collection.title }}</a>{% else %} <a href="{{ routes.all_products_collection_url }}">Shop</a>{% endif -%}
+    </div>
+
+    <h1 class="pdp__t">{{ p.title }}</h1>
+    <span class="pdp__price" data-pdp-price>
+      {%- if p.compare_at_price > p.price -%}<s>{% render 'price', price: p.compare_at_price %}</s>{%- endif -%}
+      {% render 'price', price: p.price %}
+    </span>
+
+    {%- if p.available -%}
+      {% form 'product', p %}
+        {%- if single -%}
+          <span class="pdp__lbl">{{ p.options.first }}</span>
+          <div class="pdp__opts">
+            {%- for v in p.variants -%}
+              <label class="pdp__opt">
+                <input type="radio" name="id" value="{{ v.id }}"
+                       data-price="{{ v.price }}"
+                       {% if v.available == false %}disabled{% endif %}
+                       {% if v.id == p.selected_or_first_available_variant.id %}checked{% endif %}>
+                <span>{{ v.title }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <span class="pdp__lbl">Options</span>
+          <div class="pdp__opts" style="width:100%">
+            <select name="id" class="pdp__select" style="width:100%;padding:.8em 0;background:none;border:0;border-bottom:1px solid var(--ink);font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.11em;font-size:10.5px">
+              {%- for v in p.variants -%}
+                <option value="{{ v.id }}" data-price="{{ v.price }}" {% unless v.available %}disabled{% endunless %}
+                  {% if v.id == p.selected_or_first_available_variant.id %}selected{% endif %}>
+                  {{ v.title }}{% unless v.available %} — {{ 'products.sold_out' | t }}{% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+        <button type="submit" class="btn btn--block">{{ 'products.add_to_bag' | t }}</button>
+      {% endform %}
+    {%- else -%}
+      <button class="btn btn--block" disabled style="opacity:.4;cursor:not-allowed">{{ 'products.sold_out' | t }}</button>
+      <p class="mono-sm muted" style="margin-top:1.2em">{{ 'products.sold_out_note' | t }}</p>
+    {%- endif -%}
+
+    {%- if p.description != blank -%}
+      <div class="pdp__desc rte">{{ p.description }}</div>
+    {%- endif -%}
+
+    <div class="acc">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.body != blank -%}
+          <details class="acc__i" {{ block.shopify_attributes }}>
+            <summary class="acc__b">{{ block.settings.heading }}</summary>
+            <div class="acc__c rte">{{ block.settings.body }}</div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- assign rel = collections[p.collections.first.handle].products | default: collections.all.products -%}
+{%- if rel.size > 1 -%}
+<section class="sec">
+  {% render 'section-head', num: '—', title: 'You may also like' %}
+  <div class="rail" data-rail>
+    {%- assign n = 0 -%}
+    {%- for item in rel limit: 10 -%}
+      {%- unless item.id == p.id -%}
+        {%- assign tone = n | modulo: 6 | plus: 1 -%}
+        {% render 'product-card', product: item, tone: tone, delay: 0 %}
+        {%- assign n = n | plus: 1 -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+
+<script type="application/json" data-pdp-json>{ "style": "{{ settings.price_style }}", "iso": "{{ cart.currency.iso_code }}" }</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "blocks": [
+    { "type": "detail", "name": "Detail panel", "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Details" },
+      { "type": "richtext", "id": "body", "label": "Body" } ] }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "detail", "settings": { "heading": "Fabric & care",
+        "body": "<p>Wash cold, line dry in shade, warm iron while slightly damp. Linen is meant to crease.</p>" } },
+      { "type": "detail", "settings": { "heading": "Size & fit",
+        "body": "<p>Cut generously. If you are between sizes, take the smaller one.</p>" } },
+      { "type": "detail", "settings": { "heading": "Shipping & returns",
+        "body": "<p>Shipped worldwide from Colombo. Returns accepted within 14 days, unworn.</p>" } }
+    ]
+  }
+}
+{% endschema %}

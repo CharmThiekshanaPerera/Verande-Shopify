@@ -1,0 +1,80 @@
+<section class="ed">
+  <div class="ed__fig">
+    {%- if section.settings.image_left != blank -%}
+      <div class="ed__img ed__img--side">
+        {% render 'media', image: section.settings.image_left, tone: section.settings.tone, label: 'Editorial figure', sizes: '22vw' %}
+      </div>
+    {%- endif -%}
+    <div class="ed__img ed__img--main">
+      {% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Editorial figure', sizes: '34vw' %}
+    </div>
+    {%- if section.settings.image_right != blank -%}
+      <div class="ed__img ed__img--side">
+        {% render 'media', image: section.settings.image_right, tone: section.settings.tone, label: 'Editorial figure', sizes: '22vw' %}
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="ed__row">
+    <h2 class="ed__big" data-rv>{{ section.settings.word_1 }}<small class="par">{{ section.settings.sub_1 }}</small></h2>
+    <div class="ed__top-col" data-rv="120">
+      <p class="ed__note">{{ section.settings.note_1 }}</p>
+      {%- if section.settings.small_image_1 != blank or section.settings.small_image_2 != blank or section.settings.small_image_3 != blank or section.blocks.size > 0 -%}
+        <div class="ed__mini-row">
+          {%- if section.settings.small_image_1 != blank -%}
+            <div class="ed__mini">{% render 'media', image: section.settings.small_image_1, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
+          {%- endif -%}
+          {%- if section.settings.small_image_2 != blank -%}
+            <div class="ed__mini">{% render 'media', image: section.settings.small_image_2, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
+          {%- endif -%}
+          {%- if section.settings.small_image_3 != blank -%}
+            <div class="ed__mini">{% render 'media', image: section.settings.small_image_3, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
+          {%- endif -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image != blank -%}
+              <div class="ed__mini" {{ block.shopify_attributes }}>{% render 'media', image: block.settings.image, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="ed__row ed__row--bot">
+    <p class="ed__note" data-rv>{{ section.settings.note_2 }}</p>
+    {%- if section.settings.show_care -%}
+      <div class="ed__care"><span>30°</span><span>◵</span><span>♲</span></div>
+    {%- endif -%}
+    <h2 class="ed__big" data-rv="120">{{ section.settings.word_2 }}<small class="par">{{ section.settings.sub_2 }}</small></h2>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial statement",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Centre image", "info": "A cut-out on a plain ground works best." },
+    { "type": "image_picker", "id": "image_left", "label": "Left image", "info": "Optional. Fills out the section alongside the centre image." },
+    { "type": "image_picker", "id": "image_right", "label": "Right image", "info": "Optional." },
+    { "type": "range", "id": "tone", "label": "Placeholder tone", "min": 1, "max": 6, "step": 1, "default": 4 },
+    { "type": "header", "content": "Top" },
+    { "type": "text", "id": "word_1", "label": "Word", "default": "Light" },
+    { "type": "text", "id": "sub_1", "label": "Bracketed word", "default": "and air" },
+    { "type": "richtext", "id": "note_1", "label": "Note",
+      "default": "<p>Our pieces are made to <strong>soften</strong>, not to be replaced.</p>" },
+    { "type": "image_picker", "id": "small_image_1", "label": "Small image 1", "info": "Optional. A small detail photo shown beside the note above." },
+    { "type": "image_picker", "id": "small_image_2", "label": "Small image 2", "info": "Optional." },
+    { "type": "image_picker", "id": "small_image_3", "label": "Small image 3", "info": "Optional." },
+    { "type": "header", "content": "Bottom" },
+    { "type": "text", "id": "word_2", "label": "Word", "default": "Slow" },
+    { "type": "text", "id": "sub_2", "label": "Bracketed word", "default": "by hand" },
+    { "type": "richtext", "id": "note_2", "label": "Note",
+      "default": "<p>Verande is cut in Colombo in runs of a few dozen — <strong>linen</strong> and <strong>silk</strong>, chosen for heat, for salt air, for the long way home.</p>" },
+    { "type": "checkbox", "id": "show_care", "label": "Show care marks", "default": true }
+  ],
+  "blocks": [
+    { "type": "mini", "name": "More mini photo", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" }
+    ] }
+  ],
+  "presets": [{ "name": "Editorial statement" }]
+}
+{% endschema %}

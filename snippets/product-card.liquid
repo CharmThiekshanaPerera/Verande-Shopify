@@ -1,0 +1,45 @@
+{%- liquid
+  assign tone = tone | default: 1
+  assign flag = ''
+  if product.available == false
+    assign flag = 'Sold out'
+  elsif product.tags contains 'new'
+    assign flag = 'New'
+  endif
+-%}
+<article class="card{% if grid %} card--grid{% endif %}"{% unless no_reveal %} data-rv="{{ delay | default: 0 }}"{% endunless %}>
+  <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+    <div class="card__media">
+      {%- if flag != blank -%}<span class="card__flag">{{ flag }}</span>{%- endif -%}
+      {%- assign shown = 0 -%}
+      <div class="card__slides" data-card-slides>
+        {%- for img in product.images -%}
+          {%- assign alt_dc = img.alt | downcase -%}
+          {%- unless forloop.index == 1 or alt_dc contains 'detail' -%}
+            {%- assign shown = shown | plus: 1 -%}
+            <div class="card__slide{% if shown == 1 %} is-active{% endif %}">
+              {% render 'media', image: img, tone: tone, label: product.title, sizes: '(max-width:700px) 62vw, 25vw' %}
+            </div>
+          {%- endunless -%}
+        {%- endfor -%}
+        {%- if shown == 0 -%}
+          <div class="card__slide is-active">
+            {% render 'media', image: product.featured_image, tone: tone, label: product.title, sizes: '(max-width:700px) 62vw, 25vw' %}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </a>
+  <div class="card__body">
+    <h3 class="card__name"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    {%- unless hide_price -%}
+      <span class="card__price">{% render 'price', price: product.price %}</span>
+    {%- endunless -%}
+  </div>
+  {%- assign opt = product.options_with_values | first -%}
+  {%- if opt and opt.values.size > 0 and product.has_only_default_variant == false -%}
+    <div class="card__sizes">
+      {%- for v in opt.values limit: 6 -%}<span>({{ v }})</span>{%- endfor -%}
+    </div>
+  {%- endif -%}
+</article>

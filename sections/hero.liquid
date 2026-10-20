@@ -1,0 +1,102 @@
+<section class="hero" data-hero>
+  <div class="hero__media">
+    {%- assign has_img = false -%}
+    {%- if section.settings.image != blank or section.settings.image_2 != blank or section.settings.image_3 != blank -%}
+      {%- assign has_img = true -%}
+    {%- endif -%}
+    {%- assign has_split = false -%}
+    {%- if section.settings.image != blank and section.settings.image_2 != blank and section.settings.image_3 != blank -%}
+      {%- assign has_split = true -%}
+    {%- endif -%}
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: image_size: '1600x', autoplay: true, loop: true, muted: true, controls: false }}
+    {%- elsif has_split -%}
+      <div class="hero__slides hero__slides--mobile" data-hero-slides>
+        <div class="hero__slide is-active">
+          {% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Campaign film', loading: 'eager', sizes: '100vw' %}
+        </div>
+        <div class="hero__slide">
+          {% render 'media', image: section.settings.image_2, tone: section.settings.tone, label: 'Campaign film', sizes: '100vw' %}
+        </div>
+        <div class="hero__slide">
+          {% render 'media', image: section.settings.image_3, tone: section.settings.tone, label: 'Campaign film', sizes: '100vw' %}
+        </div>
+      </div>
+      <div class="hero__split" data-hero-split>
+        <div class="hero__slot" data-slot>
+          <div class="hero__slot-img is-active">{% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Campaign film', loading: 'eager', sizes: '34vw' %}</div>
+          <div class="hero__slot-img">{% render 'media', image: section.settings.image_2, tone: section.settings.tone, label: 'Campaign film', sizes: '34vw' %}</div>
+          <div class="hero__slot-img">{% render 'media', image: section.settings.image_3, tone: section.settings.tone, label: 'Campaign film', sizes: '34vw' %}</div>
+        </div>
+        <div class="hero__slot" data-slot>
+          <div class="hero__slot-img">{% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Campaign film', sizes: '34vw' %}</div>
+          <div class="hero__slot-img is-active">{% render 'media', image: section.settings.image_2, tone: section.settings.tone, label: 'Campaign film', sizes: '34vw' %}</div>
+          <div class="hero__slot-img">{% render 'media', image: section.settings.image_3, tone: section.settings.tone, label: 'Campaign film', sizes: '34vw' %}</div>
+        </div>
+        <div class="hero__slot" data-slot>
+          <div class="hero__slot-img">{% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Campaign film', sizes: '34vw' %}</div>
+          <div class="hero__slot-img">{% render 'media', image: section.settings.image_2, tone: section.settings.tone, label: 'Campaign film', sizes: '34vw' %}</div>
+          <div class="hero__slot-img is-active">{% render 'media', image: section.settings.image_3, tone: section.settings.tone, label: 'Campaign film', sizes: '34vw' %}</div>
+        </div>
+      </div>
+    {%- elsif has_img -%}
+      <div class="hero__slides" data-hero-slides>
+        {%- if section.settings.image != blank -%}
+          <div class="hero__slide is-active">
+            {% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Campaign film', loading: 'eager', sizes: '100vw' %}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.image_2 != blank -%}
+          <div class="hero__slide">
+            {% render 'media', image: section.settings.image_2, tone: section.settings.tone, label: 'Campaign film', sizes: '100vw' %}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.image_3 != blank -%}
+          <div class="hero__slide">
+            {% render 'media', image: section.settings.image_3, tone: section.settings.tone, label: 'Campaign film', sizes: '100vw' %}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="ph ph-{{ section.settings.tone | default: 1 }}" data-ph="Campaign film"></div>
+    {%- endif -%}
+  </div>
+  <div class="hero__body">
+    <h1 class="hero__mark">{{ section.settings.wordmark | default: shop.name }}</h1>
+    <div class="hero__row">
+      <p class="hero__tag">{{ section.settings.tagline }}</p>
+      <div class="hero__cta">
+        {%- if section.settings.cta1_text != blank -%}
+          <a href="{{ section.settings.cta1_url | default: '#' }}" class="lnk">{{ section.settings.cta1_text }}</a>
+        {%- endif -%}
+        {%- if section.settings.cta2_text != blank -%}
+          <a href="{{ section.settings.cta2_url | default: '#' }}" class="lnk">{{ section.settings.cta2_text }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll">{{ section.settings.scroll_word }}</div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "wordmark", "label": "Large wordmark", "default": "Verande" },
+    { "type": "textarea", "id": "tagline", "label": "Tagline",
+      "default": "Dressed for the long afternoon. Linen and silk, cut in small batches." },
+    { "type": "video", "id": "video", "label": "Background video", "info": "Takes priority over the images below." },
+    { "type": "image_picker", "id": "image", "label": "Background image 1" },
+    { "type": "image_picker", "id": "image_2", "label": "Background image 2", "info": "Optional. When all three images are set, desktop shows all three side by side and swaps them every 2 seconds; otherwise they crossfade full-bleed." },
+    { "type": "image_picker", "id": "image_3", "label": "Background image 3", "info": "Optional." },
+    { "type": "range", "id": "tone", "label": "Placeholder tone", "min": 1, "max": 6, "step": 1, "default": 1,
+      "info": "Only used until you add an image or video." },
+    { "type": "text", "id": "cta1_text", "label": "Link 1 text", "default": "See the collection" },
+    { "type": "url",  "id": "cta1_url",  "label": "Link 1 URL" },
+    { "type": "text", "id": "cta2_text", "label": "Link 2 text", "default": "Our atelier" },
+    { "type": "url",  "id": "cta2_url",  "label": "Link 2 URL" },
+    { "type": "text", "id": "scroll_word", "label": "Scroll hint", "default": "Scroll" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

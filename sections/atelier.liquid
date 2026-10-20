@@ -1,0 +1,60 @@
+<section class="sec">
+  {%- if section.settings.heading != blank -%}
+    {% render 'section-head', num: section.settings.number, title: section.settings.heading %}
+  {%- endif -%}
+  <div class="split">
+    <div class="atelier__media" data-rv>
+      {% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Atelier', sizes: '(max-width:820px) 100vw, 46vw' %}
+    </div>
+    <div data-rv="120">
+      <h2 class="split__t">{{ section.settings.title }}</h2>
+      <div class="split__p">{{ section.settings.body }}</div>
+      {%- if section.settings.body_2 != blank -%}
+        <div class="split__p">{{ section.settings.body_2 }}</div>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="fact-row" style="margin-bottom:2em">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.cta_text != blank -%}
+        <a href="{{ section.settings.cta_url | default: '#' }}" class="lnk">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Atelier split",
+  "settings": [
+    { "type": "text", "id": "number", "label": "Section number", "default": "06." },
+    { "type": "text", "id": "heading", "label": "Section label", "default": "Atelier" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "range", "id": "tone", "label": "Placeholder tone", "min": 1, "max": 6, "step": 1, "default": 2 },
+    { "type": "richtext", "id": "title", "label": "Heading",
+      "default": "<p>A house built for <em>warm weather</em>.</p>" },
+    { "type": "richtext", "id": "body", "label": "Body",
+      "default": "<p>We began with one shop in Colombo and a narrow idea: clothes for a climate that asks for very little. Everything is made close to home, in small batches, from cloth that behaves better the longer you keep it.</p>" },
+    { "type": "richtext", "id": "body_2", "label": "Second paragraph",
+      "default": "<p>Every dress passes through the same three hands: a painter, a cutter, a finisher — all working a short walk from each other. We'd rather make fewer pieces well than many pieces quickly, so a run rarely goes past twenty.</p>" },
+    { "type": "text", "id": "cta_text", "label": "Link text", "default": "Who we are" },
+    { "type": "url",  "id": "cta_url", "label": "Link URL" }
+  ],
+  "blocks": [
+    { "type": "fact", "name": "Fact", "settings": [
+      { "type": "text", "id": "text", "label": "Text", "default": "Est. Colombo, 2022" }
+    ] }
+  ],
+  "presets": [{
+    "name": "Atelier split",
+    "blocks": [
+      { "type": "fact", "settings": { "text": "Est. Colombo, 2022" } },
+      { "type": "fact", "settings": { "text": "Hand-finished, small batch" } },
+      { "type": "fact", "settings": { "text": "Linen & silk only" } }
+    ]
+  }]
+}
+{% endschema %}

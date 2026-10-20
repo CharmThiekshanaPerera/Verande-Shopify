@@ -1,0 +1,77 @@
+<section class="camp">
+  <div class="camp__media"{% if section.settings.image != blank and section.settings.image_2 != blank %} data-camp-slides{% endif %}>
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: image_size: '1600x', autoplay: true, loop: true, muted: true, controls: false }}
+    {%- elsif section.settings.image != blank and section.settings.image_2 != blank -%}
+      <div class="camp__slide is-active">{% render 'media', image: section.settings.image, tone: 'dark', label: 'Campaign imagery', sizes: '100vw' %}</div>
+      <div class="camp__slide">{% render 'media', image: section.settings.image_2, tone: 'dark', label: 'Campaign imagery', sizes: '100vw' %}</div>
+      {%- if section.settings.image_3 != blank -%}
+        <div class="camp__slide">{% render 'media', image: section.settings.image_3, tone: 'dark', label: 'Campaign imagery', sizes: '100vw' %}</div>
+      {%- endif -%}
+    {%- else -%}
+      {% render 'media', image: section.settings.image, tone: 'dark', label: 'Campaign imagery', sizes: '100vw' %}
+    {%- endif -%}
+  </div>
+  <div class="camp__top">
+    <span class="sec-num"><i>{{ section.settings.number }}</i>{{ section.settings.label }}</span>
+    <span class="mono-sm camp__meta par">{{ section.settings.season }}</span>
+  </div>
+  <div class="camp__bot">
+    <div>
+      <h2 class="camp__stmt" data-rv>{{ section.settings.statement }}</h2>
+      {%- if section.settings.details != blank -%}
+        <div class="camp__details" data-rv="90">{{ section.settings.details }}</div>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="fact-row" data-rv="140">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+    <div data-rv="120">
+      <div class="mono-sm camp__meta" style="margin-bottom:14px">{{ section.settings.sub }}</div>
+      {%- if section.settings.cta_text != blank -%}
+        <a href="{{ section.settings.cta_url | default: '#' }}" class="lnk" style="color:#fff">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Campaign",
+  "settings": [
+    { "type": "text", "id": "number", "label": "Section number", "default": "03." },
+    { "type": "text", "id": "label", "label": "Section label", "default": "Campaign" },
+    { "type": "video", "id": "video", "label": "Background video" },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "image_picker", "id": "image_2", "label": "Background image 2", "info": "Optional. When set alongside the first image, the background slowly crossfades between them." },
+    { "type": "image_picker", "id": "image_3", "label": "Background image 3", "info": "Optional. A third image in the same slow crossfade." },
+    { "type": "richtext", "id": "statement", "label": "Statement",
+      "default": "<p>Cloth that <em>softens</em> with every wearing, cut for the hours between noon and dusk.</p>",
+      "info": "Wrap a word in italics to tint it with your accent colour." },
+    { "type": "richtext", "id": "details", "label": "Supporting details",
+      "default": "<p>Every piece begins as a sketch on cotton rag paper, hand-painted by one of a small circle of Colombo artists, then cut and sewn a few streets away. Nothing is printed, nothing is mass-produced — what you see on the model is the one original, repeated only a dozen or so times.</p>",
+      "info": "A longer paragraph of copy shown under the statement." },
+    { "type": "text", "id": "sub", "label": "Sub-line", "default": "The Linen Edit (Resort)" },
+    { "type": "text", "id": "season", "label": "Season tag", "default": "SS_'26" },
+    { "type": "text", "id": "cta_text", "label": "Link text", "default": "See campaign" },
+    { "type": "url",  "id": "cta_url", "label": "Link URL" }
+  ],
+  "blocks": [
+    { "type": "fact", "name": "Fact", "settings": [
+      { "type": "text", "id": "text", "label": "Text", "default": "Hand-painted, Colombo" }
+    ] }
+  ],
+  "presets": [{
+    "name": "Campaign",
+    "blocks": [
+      { "type": "fact", "settings": { "text": "100% hand-painted" } },
+      { "type": "fact", "settings": { "text": "Runs of 12–20 pieces" } },
+      { "type": "fact", "settings": { "text": "Linen & mulberry silk" } }
+    ]
+  }]
+}
+{% endschema %}

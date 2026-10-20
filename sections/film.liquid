@@ -1,0 +1,62 @@
+<section class="film">
+  <div class="film__media">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: image_size: '1600x', autoplay: true, loop: true, muted: true, controls: false }}
+    {%- else -%}
+      {% render 'media', image: section.settings.image, tone: 'dark', label: 'Film still', sizes: '100vw' %}
+    {%- endif -%}
+  </div>
+  <div class="film__body">
+    <span class="sec-num"><i>{{ section.settings.number }}</i>{{ section.settings.label }}</span>
+    <h2 class="film__t" data-rv>{{ section.settings.title }}</h2>
+    <div class="film__p" data-rv="120">{{ section.settings.body }}</div>
+    {%- if section.settings.body_2 != blank -%}
+      <div class="film__p" data-rv="150">{{ section.settings.body_2 }}</div>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="fact-row" data-rv="170" style="margin-bottom:2em">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if section.settings.cta_text != blank -%}
+      <a href="{{ section.settings.cta_url | default: '#' }}" class="lnk">{{ section.settings.cta_text }}</a>
+    {%- endif -%}
+  </div>
+  {%- if section.settings.cta_url != blank -%}
+    <a href="{{ section.settings.cta_url }}" class="film__play">{{ section.settings.play_word }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Film",
+  "settings": [
+    { "type": "text", "id": "number", "label": "Section number", "default": "07." },
+    { "type": "text", "id": "label", "label": "Section label", "default": "Verande Film" },
+    { "type": "video", "id": "video", "label": "Background video" },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "richtext", "id": "title", "label": "Heading", "default": "<p>A house of <em>light</em></p>" },
+    { "type": "richtext", "id": "body", "label": "Body",
+      "default": "<p>Shot over one afternoon on a veranda outside Colombo. Cloth moving in the heat, the way it actually falls — no styling, no straightening, nothing pressed.</p>" },
+    { "type": "richtext", "id": "body_2", "label": "Second paragraph",
+      "default": "<p>No two runs are painted quite the same — a slower way to dress, in a climate that rewards slowing down.</p>" },
+    { "type": "text", "id": "cta_text", "label": "Link text", "default": "Watch" },
+    { "type": "url",  "id": "cta_url", "label": "Link URL" },
+    { "type": "text", "id": "play_word", "label": "Circle word", "default": "Play" }
+  ],
+  "blocks": [
+    { "type": "fact", "name": "Fact", "settings": [
+      { "type": "text", "id": "text", "label": "Text", "default": "Shot on location, Colombo" }
+    ] }
+  ],
+  "presets": [{
+    "name": "Film",
+    "blocks": [
+      { "type": "fact", "settings": { "text": "Shot on location, Colombo" } },
+      { "type": "fact", "settings": { "text": "SS '26 capsule" } }
+    ]
+  }]
+}
+{% endschema %}

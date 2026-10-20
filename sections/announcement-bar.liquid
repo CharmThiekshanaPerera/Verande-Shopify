@@ -1,0 +1,19 @@
+<div class="announce">
+  <span class="announce__t">
+    {{ section.settings.text }}{%- if section.settings.link_text != blank and section.settings.link_url != blank -%}
+      &nbsp;&mdash;&nbsp;<a href="{{ section.settings.link_url }}">{{ section.settings.link_text }}</a>
+    {%- endif -%}
+  </span>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Message",
+      "default": "Worldwide shipping — Europe, the Americas, Australia & the Middle East" },
+    { "type": "text", "id": "link_text", "label": "Link text", "default": "Shop New In" },
+    { "type": "url", "id": "link_url", "label": "Link URL" }
+  ]
+}
+{% endschema %}

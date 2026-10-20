@@ -1,0 +1,11 @@
+<div class="page-head">
+  <h1 class="page-head__t">{{ article.title }}</h1>
+  <div class="page-head__meta"><span class="mono-sm">{{ article.published_at | date: '%d.%m.%Y' }}</span></div>
+</div>
+{%- if article.image -%}
+  <div class="wrap" style="margin-bottom:clamp(28px,4vw,56px)">
+    <img src="{{ article.image | image_url: width: 1800 }}" alt="{{ article.image.alt | escape }}" loading="eager">
+  </div>
+{%- endif -%}
+<div class="wrap" style="padding-bottom:var(--sec)"><div class="rte">{{ article.content }}</div></div>
+{% schema %}{ "name": "Article" }{% endschema %}

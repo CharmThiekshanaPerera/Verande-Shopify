@@ -1,0 +1,13 @@
+{%- comment -%} image · tone · label · sizes {%- endcomment -%}
+{%- if image != blank -%}
+  <img src="{{ image | image_url: width: 1600 }}"
+       srcset="{{ image | image_url: width: 480 }} 480w,
+               {{ image | image_url: width: 800 }} 800w,
+               {{ image | image_url: width: 1200 }} 1200w,
+               {{ image | image_url: width: 1800 }} 1800w"
+       sizes="{{ sizes | default: '100vw' }}"
+       alt="{{ image.alt | default: label | escape }}"
+       width="{{ image.width }}" height="{{ image.height }}" loading="{{ loading | default: 'lazy' }}">
+{%- else -%}
+  <div class="ph ph-{{ tone | default: 1 }}" data-ph="{{ label | escape }}"></div>
+{%- endif -%}

@@ -1,0 +1,17 @@
+<div class="page-head">
+  <h1 class="page-head__t">Shop</h1>
+  <div class="page-head__meta"><span class="mono-sm">{{ collections.size }} collections</span></div>
+</div>
+<div class="grid">
+  {%- for coll in collections -%}
+    {%- assign tone = forloop.index0 | modulo: 6 | plus: 1 -%}
+    <a class="cat" style="width:auto" href="{{ coll.url }}" data-rv="0">
+      <div class="cat__media">
+        {% render 'media', image: coll.featured_image, tone: tone, label: '', sizes: '25vw' %}
+        <span class="cat__label">{{ coll.title }}</span>
+        <span class="cat__count brk">{{ coll.all_products_count }}</span>
+      </div>
+    </a>
+  {%- endfor -%}
+</div>
+{% schema %}{ "name": "Collections list" }{% endschema %}

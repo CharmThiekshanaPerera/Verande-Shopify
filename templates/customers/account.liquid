@@ -1,0 +1,25 @@
+<div class="page-head">
+  <h1 class="page-head__t">{{ 'customer.orders' | t }}</h1>
+  <div class="page-head__meta">
+    <span class="mono-sm">{{ customer.email }}</span>
+    <span class="mono-sm">
+      <a href="{{ routes.account_addresses_url }}" class="lnk">{{ 'customer.addresses' | t }}</a>
+      <a href="{{ routes.account_logout_url }}" class="lnk">{{ 'customer.logout' | t }}</a>
+    </span>
+  </div>
+</div>
+<div class="wrap" style="padding-bottom:var(--sec)">
+  {%- if customer.orders.size > 0 -%}
+    {%- for order in customer.orders -%}
+      <div class="cart__row" style="grid-template-columns:1fr auto">
+        <div>
+          <div class="cart__n"><a href="{{ order.customer_url }}">{{ order.name }}</a></div>
+          <div class="cart__v mono-sm">{{ order.created_at | date: '%d.%m.%Y' }} — {{ order.financial_status }}</div>
+        </div>
+        <div class="mono">{{ order.total_price | money }}</div>
+      </div>
+    {%- endfor -%}
+  {%- else -%}
+    <div class="empty"><p class="mono">No orders yet.</p></div>
+  {%- endif -%}
+</div>

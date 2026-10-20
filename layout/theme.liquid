@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_bg }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64 }}">
+  {%- endif -%}
+
+  <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+  {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  {{ content_for_header }}
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  {{ 'extra.css' | asset_url | stylesheet_tag }}
+
+  <style>
+    :root{
+      --ivory:{{ settings.color_bg }};
+      --bone:{{ settings.color_bg_alt }};
+      --sand:{{ settings.color_line }};
+      --clay:{{ settings.color_accent }};
+      --ink:{{ settings.color_text }};
+      --stone:{{ settings.color_muted }};
+      --clay-soft:{{ settings.color_accent | color_lighten: 10 }};
+      --ink-soft:{{ settings.color_text | color_lighten: 10 }};
+      --sand-2:{{ settings.color_line | color_darken: 6 }};
+      --bg:var(--ivory); --fg:var(--ink);
+    }
+  </style>
+  {{ 'theme.js' | asset_url | script_tag }}
+</head>
+
+<body class="tmpl-{{ template.name }}">
+  <a href="#main" class="visually-hidden">{{ 'general.skip_to_content' | t }}</a>
+
+  {% section 'announcement-bar' %}
+
+  {%- if settings.show_loader -%}
+    <div class="loader" data-loader>
+      <div class="loader__inner">
+        <div class="loader__mark"><span>{{ settings.loader_word | default: shop.name }}</span></div>
+      </div>
+      <div class="loader__meta">
+        <span class="mono-sm">{{ settings.loader_left }}</span>
+        <span class="mono-sm" data-loader-count>00%</span>
+        <span class="mono-sm">{{ settings.loader_right }}</span>
+      </div>
+      <div class="loader__bar" data-loader-bar></div>
+    </div>
+  {%- endif -%}
+
+  {% section 'header' %}
+
+  <main id="main" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+</body>
+</html>
