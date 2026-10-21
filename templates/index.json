@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -24,7 +33,7 @@
         "t3": { "type": "item", "settings": { "glyph": "⊘", "heading": "Secure checkout", "text": "Encrypted payment, every order" } },
         "t4": { "type": "item", "settings": { "glyph": "◉", "heading": "Made in Colombo", "text": "Sketched, painted and sewn locally" } }
       },
-      "block_order": ["t1", "t2", "t3", "t4"],
+      "block_order": ["t1","t2","t3","t4"],
       "settings": {}
     },
     "marquee": {
@@ -37,7 +46,7 @@
         "w5": { "type": "word", "settings": { "text": "Atelier Colombo" } },
         "w6": { "type": "word", "settings": { "text": "Resort '26" } }
       },
-      "block_order": ["w1", "w2", "w3", "w4", "w5", "w6"],
+      "block_order": ["w1","w2","w3","w4","w5","w6"],
       "settings": { "separator": "◆" }
     },
     "new_arrivals": {
@@ -59,7 +68,7 @@
         "f2": { "type": "fact", "settings": { "text": "Runs of 12–20 pieces" } },
         "f3": { "type": "fact", "settings": { "text": "Linen & mulberry silk" } }
       },
-      "block_order": ["f1", "f2", "f3"],
+      "block_order": ["f1","f2","f3"],
       "settings": {
         "number": "03.",
         "label": "Campaign",
@@ -77,25 +86,26 @@
     "categories": {
       "type": "category-rail",
       "blocks": {
-        "c1": { "type": "cat", "settings": { "title": "New in", "collection": "new-in", "image": "shopify://shop_images/rana-01.png" } },
-        "c2": { "type": "cat", "settings": { "title": "Dresses", "collection": "dresses", "image": "shopify://shop_images/verande-nilu-01.png" } },
-        "c3": { "type": "cat", "settings": { "title": "Linen", "collection": "dresses", "tag": "linen", "count_override": "7", "image": "shopify://shop_images/palma-01.png" } },
-        "c4": { "type": "cat", "settings": { "title": "Silk", "collection": "dresses", "tag": "silk", "count_override": "3", "image": "shopify://shop_images/amala-01.png" } },
-        "c5": { "type": "cat", "settings": { "title": "Shirts", "collection": "shirts" } },
-        "c6": { "type": "cat", "settings": { "title": "Maxi", "collection": "dresses", "tag": "maxi", "count_override": "6", "image": "shopify://shop_images/rana-03.png" } },
-        "c7": { "type": "cat", "settings": { "title": "Midi", "collection": "dresses", "tag": "midi", "count_override": "3", "image": "shopify://shop_images/vela-03.png" } }
+        "c1": { "type": "cat", "settings": { "collection": "new-in", "title": "New in", "tag": "", "count_override": "", "image": "shopify://shop_images/rana-01.png" } },
+        "c2": { "type": "cat", "settings": { "collection": "dresses", "title": "Dresses", "tag": "", "count_override": "", "image": "shopify://shop_images/verande-nilu-01.png" } },
+        "c3": { "type": "cat", "settings": { "collection": "dresses", "title": "Linen", "tag": "linen", "count_override": "7", "image": "shopify://shop_images/palma-01.png" } },
+        "c4": { "type": "cat", "settings": { "collection": "dresses", "title": "Silk", "tag": "silk", "count_override": "3", "image": "shopify://shop_images/amala-01.png" } },
+        "c5": { "type": "cat", "settings": { "collection": "shirts", "title": "Shirts", "tag": "", "count_override": "" } },
+        "c6": { "type": "cat", "settings": { "collection": "dresses", "title": "Maxi", "tag": "maxi", "count_override": "6", "image": "shopify://shop_images/rana-03.png" } },
+        "c7": { "type": "cat", "settings": { "collection": "dresses", "title": "Midi", "tag": "midi", "count_override": "3", "image": "shopify://shop_images/vela-03.png" } }
       },
-      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7"],
+      "block_order": ["c1","c2","c3","c4","c5","c6","c7"],
       "settings": { "number": "04.", "heading": "Categories", "link_text": "See all" }
     },
     "editorial": {
       "type": "editorial",
       "blocks": {
+        "mini_8NpaYa": { "type": "mini", "settings": { "image": "shopify://shop_images/verande-nilu-05.png" } },
         "m1": { "type": "mini", "settings": { "image": "shopify://shop_images/palma-02.png" } },
         "m2": { "type": "mini", "settings": { "image": "shopify://shop_images/amala-04.png" } },
         "m3": { "type": "mini", "settings": { "image": "shopify://shop_images/indra-04.png" } }
       },
-      "block_order": ["m1", "m2", "m3"],
+      "block_order": ["mini_8NpaYa","m1","m2","m3"],
       "settings": {
         "image": "shopify://shop_images/mira-01.png",
         "image_left": "shopify://shop_images/vela-01.png",
@@ -123,7 +133,7 @@
         "g5": { "type": "photo", "settings": { "image": "shopify://shop_images/verande-nilu-03.png", "caption": "Nilu", "product": "nilu-hand-painted-linen-dress" } },
         "g6": { "type": "photo", "settings": { "image": "shopify://shop_images/indra-03.png", "caption": "Indra", "product": "indra-hand-painted-silk-dress" } }
       },
-      "block_order": ["g1", "g2", "g3", "g4", "g5", "g6"],
+      "block_order": ["g1","g2","g3","g4","g5","g6"],
       "settings": { "eyebrow": "In the wild", "heading": "A few more, close up" }
     },
     "atelier": {
@@ -133,7 +143,7 @@
         "a2": { "type": "fact", "settings": { "text": "Hand-finished, small batch" } },
         "a3": { "type": "fact", "settings": { "text": "Linen & silk only" } }
       },
-      "block_order": ["a1", "a2", "a3"],
+      "block_order": ["a1","a2","a3"],
       "settings": {
         "number": "06.",
         "heading": "Atelier",
@@ -152,7 +162,7 @@
         "fl1": { "type": "fact", "settings": { "text": "Shot on location, Colombo" } },
         "fl2": { "type": "fact", "settings": { "text": "SS '26 capsule" } }
       },
-      "block_order": ["fl1", "fl2"],
+      "block_order": ["fl1","fl2"],
       "settings": {
         "number": "07.",
         "label": "Verande Film",
@@ -161,6 +171,7 @@
         "body": "<p>Shot over one afternoon on a veranda outside Colombo. Cloth moving in the heat, the way it actually falls — no styling, no straightening, nothing pressed.</p>",
         "body_2": "<p>No two runs are painted quite the same — a slower way to dress, in a climate that rewards slowing down.</p>",
         "cta_text": "",
+        "cta_url": "",
         "play_word": ""
       }
     },
@@ -170,7 +181,8 @@
         "eyebrow": "Verande",
         "line": "<p><em>Quiet</em> clothes for loud afternoons.</p>",
         "sub": "No two runs are painted quite the same.",
-        "cta_text": ""
+        "cta_text": "",
+        "cta_url": ""
       }
     },
     "newsletter": {
@@ -180,7 +192,41 @@
         "sub": "A note when something new is cut. Nothing else.",
         "success": "Thank you — you're on the list."
       }
+    },
+    "film_WqnJCV": {
+      "type": "film",
+      "blocks": {
+        "fact_FkFmYQ": { "type": "fact", "settings": { "text": "Shot on location, Colombo" } },
+        "fact_GbzENY": { "type": "fact", "settings": { "text": "SS '26 capsule" } }
+      },
+      "block_order": ["fact_FkFmYQ","fact_GbzENY"],
+      "name": "Film",
+      "settings": {
+        "number": "07.",
+        "label": "Verande Film",
+        "video": "shopify://files/videos/clip-1-ai-colour-graded-web.mp4",
+        "title": "<p>A house of <em>light</em></p>",
+        "body": "<p>Shot over one afternoon on a veranda outside Colombo. Cloth moving in the heat, the way it actually falls — no styling, no straightening, nothing pressed.</p>",
+        "body_2": "<p>No two runs are painted quite the same — a slower way to dress, in a climate that rewards slowing down.</p>",
+        "cta_text": "Watch",
+        "cta_url": "",
+        "play_word": "Play"
+      }
     }
   },
-  "order": ["hero", "trust_bar", "marquee", "new_arrivals", "campaign", "categories", "editorial", "gallery", "atelier", "film", "statement", "newsletter"]
+  "order": [
+    "hero",
+    "trust_bar",
+    "marquee",
+    "new_arrivals",
+    "campaign",
+    "categories",
+    "film_WqnJCV",
+    "editorial",
+    "gallery",
+    "atelier",
+    "film",
+    "statement",
+    "newsletter"
+  ]
 }
