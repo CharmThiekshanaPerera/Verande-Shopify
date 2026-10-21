@@ -39,7 +39,12 @@
     {%- if p.available -%}
       {% form 'product', p %}
         {%- if single -%}
-          <span class="pdp__lbl">{{ p.options.first }}</span>
+          <div class="pdp__optrow">
+            <span class="pdp__lbl">{{ p.options.first }}</span>
+            {%- if p.options.first == 'Size' -%}
+              <button type="button" class="pdp__size-guide mono-sm" data-size-guide-open>Size guide</button>
+            {%- endif -%}
+          </div>
           <div class="pdp__opts">
             {%- for v in p.variants -%}
               <label class="pdp__opt">
@@ -52,7 +57,10 @@
             {%- endfor -%}
           </div>
         {%- else -%}
-          <span class="pdp__lbl">Options</span>
+          <div class="pdp__optrow">
+            <span class="pdp__lbl">Options</span>
+            <button type="button" class="pdp__size-guide mono-sm" data-size-guide-open>Size guide</button>
+          </div>
           <div class="pdp__opts" style="width:100%">
             <select name="id" class="pdp__select" style="width:100%;padding:.8em 0;background:none;border:0;border-bottom:1px solid var(--ink);font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.11em;font-size:10.5px">
               {%- for v in p.variants -%}
@@ -66,6 +74,10 @@
         {%- endif -%}
         <button type="submit" class="btn btn--block">{{ 'products.add_to_bag' | t }}</button>
       {% endform %}
+      <ul class="pdp__secure mono-sm" aria-label="Secure checkout">
+        <li>🔒 Secure encrypted checkout</li>
+        <li>↺ Exchanges within 7 days</li>
+      </ul>
     {%- else -%}
       <button class="btn btn--block" disabled style="opacity:.4;cursor:not-allowed">{{ 'products.sold_out' | t }}</button>
       <p class="mono-sm muted" style="margin-top:1.2em">{{ 'products.sold_out_note' | t }}</p>
@@ -73,6 +85,32 @@
 
     {%- if p.description != blank -%}
       <div class="pdp__desc rte">{{ p.description }}</div>
+    {%- endif -%}
+
+    {%- liquid
+      assign has_facts = false
+      if p.metafields.custom.fabric_composition != blank or p.metafields.custom.fabric_colors != blank or p.metafields.custom.lining_info != blank or p.metafields.custom.back_design != blank or p.metafields.custom.model_size != blank
+        assign has_facts = true
+      endif
+    -%}
+    {%- if has_facts -%}
+      <dl class="pdp__facts mono-sm">
+        {%- if p.metafields.custom.fabric_composition != blank -%}
+          <dt>Fabric</dt><dd>{{ p.metafields.custom.fabric_composition.value }}</dd>
+        {%- endif -%}
+        {%- if p.metafields.custom.fabric_colors != blank -%}
+          <dt>Colour</dt><dd>{{ p.metafields.custom.fabric_colors.value }}</dd>
+        {%- endif -%}
+        {%- if p.metafields.custom.lining_info != blank -%}
+          <dt>Lining</dt><dd>{{ p.metafields.custom.lining_info.value }}</dd>
+        {%- endif -%}
+        {%- if p.metafields.custom.back_design != blank -%}
+          <dt>Back</dt><dd>{{ p.metafields.custom.back_design.value }}</dd>
+        {%- endif -%}
+        {%- if p.metafields.custom.model_size != blank -%}
+          <dt>Model is wearing</dt><dd>{{ p.metafields.custom.model_size.value }}</dd>
+        {%- endif -%}
+      </dl>
     {%- endif -%}
 
     <div class="acc">
@@ -87,6 +125,8 @@
     </div>
   </div>
 </div>
+
+{% render 'size-guide-modal' %}
 
 {%- assign rel = collections[p.collections.first.handle].products | default: collections.all.products -%}
 {%- if rel.size > 1 -%}

@@ -1,50 +1,68 @@
-<section class="ed">
-  <div class="ed__fig">
-    {%- if section.settings.image_left != blank -%}
-      <div class="ed__img ed__img--side">
-        {% render 'media', image: section.settings.image_left, tone: section.settings.tone, label: 'Editorial figure', sizes: '22vw' %}
-      </div>
-    {%- endif -%}
-    <div class="ed__img ed__img--main">
-      {% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Editorial figure', sizes: '34vw' %}
+<section class="ed{% if section.settings.bg_video != blank %} ed--video{% endif %}">
+  {%- if section.settings.bg_video != blank -%}
+    {%- comment -%} Full-screen background video treatment (added) — shown instead of the photo spread whenever a video is attached. {%- endcomment -%}
+    <div class="ed__video-wrap">
+      {{ section.settings.bg_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, image_size: '1920x', class: 'ed__video' }}
     </div>
-    {%- if section.settings.image_right != blank -%}
-      <div class="ed__img ed__img--side">
-        {% render 'media', image: section.settings.image_right, tone: section.settings.tone, label: 'Editorial figure', sizes: '22vw' %}
+    <div class="ed__video-overlay">
+      <h2 class="ed__big ed__big--video" data-rv>{{ section.settings.word_1 }}<small class="par">{{ section.settings.sub_1 }}</small></h2>
+      <p class="ed__note ed__note--video" data-rv="120">{{ section.settings.note_1 }}</p>
+      <div class="ed__video-bottom">
+        <p class="ed__note ed__note--video" data-rv>{{ section.settings.note_2 }}</p>
+        {%- if section.settings.show_care -%}
+          <div class="ed__care ed__care--video"><span>30°</span><span>◵</span><span>♲</span></div>
+        {%- endif -%}
+        <h2 class="ed__big ed__big--video ed__big--sm" data-rv="120">{{ section.settings.word_2 }}<small class="par">{{ section.settings.sub_2 }}</small></h2>
       </div>
-    {%- endif -%}
-  </div>
-  <div class="ed__row">
-    <h2 class="ed__big" data-rv>{{ section.settings.word_1 }}<small class="par">{{ section.settings.sub_1 }}</small></h2>
-    <div class="ed__top-col" data-rv="120">
-      <p class="ed__note">{{ section.settings.note_1 }}</p>
-      {%- if section.settings.small_image_1 != blank or section.settings.small_image_2 != blank or section.settings.small_image_3 != blank or section.blocks.size > 0 -%}
-        <div class="ed__mini-row">
-          {%- if section.settings.small_image_1 != blank -%}
-            <div class="ed__mini">{% render 'media', image: section.settings.small_image_1, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
-          {%- endif -%}
-          {%- if section.settings.small_image_2 != blank -%}
-            <div class="ed__mini">{% render 'media', image: section.settings.small_image_2, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
-          {%- endif -%}
-          {%- if section.settings.small_image_3 != blank -%}
-            <div class="ed__mini">{% render 'media', image: section.settings.small_image_3, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
-          {%- endif -%}
-          {%- for block in section.blocks -%}
-            {%- if block.settings.image != blank -%}
-              <div class="ed__mini" {{ block.shopify_attributes }}>{% render 'media', image: block.settings.image, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
-            {%- endif -%}
-          {%- endfor -%}
+    </div>
+  {%- else -%}
+    <div class="ed__fig">
+      {%- if section.settings.image_left != blank -%}
+        <div class="ed__img ed__img--side">
+          {% render 'media', image: section.settings.image_left, tone: section.settings.tone, label: 'Editorial figure', sizes: '22vw' %}
+        </div>
+      {%- endif -%}
+      <div class="ed__img ed__img--main">
+        {% render 'media', image: section.settings.image, tone: section.settings.tone, label: 'Editorial figure', sizes: '34vw' %}
+      </div>
+      {%- if section.settings.image_right != blank -%}
+        <div class="ed__img ed__img--side">
+          {% render 'media', image: section.settings.image_right, tone: section.settings.tone, label: 'Editorial figure', sizes: '22vw' %}
         </div>
       {%- endif -%}
     </div>
-  </div>
-  <div class="ed__row ed__row--bot">
-    <p class="ed__note" data-rv>{{ section.settings.note_2 }}</p>
-    {%- if section.settings.show_care -%}
-      <div class="ed__care"><span>30°</span><span>◵</span><span>♲</span></div>
-    {%- endif -%}
-    <h2 class="ed__big" data-rv="120">{{ section.settings.word_2 }}<small class="par">{{ section.settings.sub_2 }}</small></h2>
-  </div>
+    <div class="ed__row">
+      <h2 class="ed__big" data-rv>{{ section.settings.word_1 }}<small class="par">{{ section.settings.sub_1 }}</small></h2>
+      <div class="ed__top-col" data-rv="120">
+        <p class="ed__note">{{ section.settings.note_1 }}</p>
+        {%- if section.settings.small_image_1 != blank or section.settings.small_image_2 != blank or section.settings.small_image_3 != blank or section.blocks.size > 0 -%}
+          <div class="ed__mini-row">
+            {%- if section.settings.small_image_1 != blank -%}
+              <div class="ed__mini">{% render 'media', image: section.settings.small_image_1, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
+            {%- endif -%}
+            {%- if section.settings.small_image_2 != blank -%}
+              <div class="ed__mini">{% render 'media', image: section.settings.small_image_2, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
+            {%- endif -%}
+            {%- if section.settings.small_image_3 != blank -%}
+              <div class="ed__mini">{% render 'media', image: section.settings.small_image_3, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
+            {%- endif -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.image != blank -%}
+                <div class="ed__mini" {{ block.shopify_attributes }}>{% render 'media', image: block.settings.image, tone: section.settings.tone, label: 'Detail', sizes: '90px' %}</div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="ed__row ed__row--bot">
+      <p class="ed__note" data-rv>{{ section.settings.note_2 }}</p>
+      {%- if section.settings.show_care -%}
+        <div class="ed__care"><span>30°</span><span>◵</span><span>♲</span></div>
+      {%- endif -%}
+      <h2 class="ed__big" data-rv="120">{{ section.settings.word_2 }}<small class="par">{{ section.settings.sub_2 }}</small></h2>
+    </div>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -54,6 +72,8 @@
     { "type": "image_picker", "id": "image", "label": "Centre image", "info": "A cut-out on a plain ground works best." },
     { "type": "image_picker", "id": "image_left", "label": "Left image", "info": "Optional. Fills out the section alongside the centre image." },
     { "type": "image_picker", "id": "image_right", "label": "Right image", "info": "Optional." },
+    { "type": "video", "id": "bg_video", "label": "Full-screen background video",
+      "info": "Optional. When set, this video plays full-screen for the whole section instead of the photo spread above — upload it here. Keep it short and already compressed for web (a few MB, muted, looping) so it loads fast." },
     { "type": "range", "id": "tone", "label": "Placeholder tone", "min": 1, "max": 6, "step": 1, "default": 4 },
     { "type": "header", "content": "Top" },
     { "type": "text", "id": "word_1", "label": "Word", "default": "Light" },

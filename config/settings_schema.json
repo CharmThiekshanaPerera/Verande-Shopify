@@ -54,5 +54,12 @@
       { "type": "text", "id": "social_pinterest", "label": "Pinterest URL" },
       { "type": "text", "id": "social_tiktok",    "label": "TikTok URL" }
     ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      { "type": "text", "id": "whatsapp_number", "label": "WhatsApp number",
+        "info": "Include the country code, digits only or with +, spaces or dashes — e.g. +94771234567. Leave blank to hide the WhatsApp button." }
+    ]
   }
 ]
