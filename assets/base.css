@@ -141,13 +141,21 @@ ul{list-style:none;padding:0}
 .hdr__util{display:flex;gap:clamp(12px,1.6vw,22px);justify-self:end;align-items:center}
 .hdr__util button,.hdr__util a{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.13em;font-size:13px}
 .hdr__burger{display:none}
+
+/* ---------- HEADER mobile icon row (added) — Milly-style: burger / centred mark / icons ---------- */
+.hdr__icons{display:none;align-items:center;gap:16px}
+.hdr__icon{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:.2em}
+.hdr__icon-n{position:absolute;top:-2px;right:-4px;min-width:14px;height:14px;padding:0 2px;border-radius:50%;
+  background:var(--clay);color:#fff;font-family:var(--f-mono);font-size:9px;line-height:14px;text-align:center}
+
 @media(max-width:860px){
-  .hdr{grid-template-columns:auto 1fr auto}
+  .hdr{grid-template-columns:1fr auto 1fr}
   .hdr__nav{display:none}
-  .hdr__burger{display:block}
+  .hdr__burger{display:block;grid-column:1;justify-self:start}
+  .hdr__mark{grid-column:2;justify-self:center;padding-left:0;font-size:22px}
+  .hdr__util{grid-column:3;justify-self:end;gap:0}
   .u-hide-sm{display:none}
-  .hdr__util{gap:16px}
-  .hdr__util a,.hdr__util button{padding:.5em .15em}
+  .hdr__icons{display:flex}
 }
 
 /* ---------- LOADER ---------- */

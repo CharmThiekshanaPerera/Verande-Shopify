@@ -1,4 +1,6 @@
 <header class="hdr{% unless template.name == 'index' %} is-solid{% endunless %}" data-header>
+  <button class="hdr__burger" data-burger aria-expanded="false">{{ 'general.menu' | t }}</button>
+
   <a href="{{ routes.root_url }}" class="hdr__mark">
     {%- if section.settings.logo != blank -%}
       <img src="{{ section.settings.logo | image_url: width: 400 }}" alt="{{ shop.name | escape }}"
@@ -15,12 +17,33 @@
   </nav>
 
   <div class="hdr__util">
-    <button class="hdr__burger" data-burger aria-expanded="false">{{ 'general.menu' | t }}</button>
     <a href="{{ routes.search_url }}" class="u-hide-sm">{{ 'general.search' | t }}</a>
     {%- if shop.customer_accounts_enabled -%}
       <a href="{{ routes.account_url }}" class="u-hide-sm">{{ 'general.account' | t }}</a>
     {%- endif -%}
-    <a href="{{ routes.cart_url }}">{{ 'general.bag' | t }}&nbsp;({{ cart.item_count }})</a>
+    <a href="{{ routes.cart_url }}" class="u-hide-sm">{{ 'general.bag' | t }}&nbsp;({{ cart.item_count }})</a>
+
+    {%- comment -%} Mobile-only icon row (added) — Milly-style: burger / centered mark / icons. {%- endcomment -%}
+    <div class="hdr__icons">
+      <a href="{{ routes.search_url }}" class="hdr__icon" aria-label="{{ 'general.search' | t }}">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.1" y2="16.1"/>
+        </svg>
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="hdr__icon" aria-label="{{ 'general.account' | t }}">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>
+          </svg>
+        </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="hdr__icon hdr__icon--bag" aria-label="{{ 'general.bag' | t }}">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+        </svg>
+        {%- if cart.item_count > 0 -%}<span class="hdr__icon-n">{{ cart.item_count }}</span>{%- endif -%}
+      </a>
+    </div>
   </div>
 </header>
 
