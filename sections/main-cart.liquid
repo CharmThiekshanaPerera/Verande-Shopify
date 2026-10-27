@@ -1,10 +1,10 @@
-<div class="cart">
+<div class="cart" data-cart data-section-id="{{ section.id }}">
   <h1 class="page-head__t" style="margin-bottom:clamp(24px,4vw,52px)">{{ 'cart.title' | t }}</h1>
 
   {%- if cart.item_count > 0 -%}
     <form action="{{ routes.cart_url }}" method="post" novalidate>
       {%- for item in cart.items -%}
-        <div class="cart__row">
+        <div class="cart__row" data-cart-row data-key="{{ item.key }}">
           <a href="{{ item.url }}" class="cart__thumb">
             {%- if item.image -%}
               <img src="{{ item.image | image_url: width: 260 }}" alt="{{ item.title | escape }}" width="260" height="347" loading="lazy">
@@ -17,10 +17,13 @@
             {%- unless item.variant.title contains 'Default' -%}
               <div class="cart__v mono-sm par">{{ item.variant.title }}</div>
             {%- endunless -%}
-            <div class="cart__qty">
-              <a href="{{ item.url_to_remove }}" aria-label="{{ 'cart.remove' | t }}">&times;</a>
-              <span>{{ item.quantity }}</span>
+            {%- comment -%} Real quantity stepper (added) — was a static number before, with no way to change it except remove-and-re-add. {%- endcomment -%}
+            <div class="cart__qty" data-qty-stepper>
+              <button type="button" class="cart__qty-btn" data-qty-down aria-label="Decrease quantity">&minus;</button>
+              <span data-qty-value>{{ item.quantity }}</span>
+              <button type="button" class="cart__qty-btn" data-qty-up aria-label="Increase quantity">&plus;</button>
             </div>
+            <button type="button" class="cart__remove mono-sm" data-cart-remove>{{ 'cart.remove' | t }}</button>
           </div>
           <div class="mono" style="text-align:right">{% render 'price', price: item.final_line_price %}</div>
         </div>
