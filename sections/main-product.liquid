@@ -7,19 +7,9 @@
 -%}
 <div class="pdp" data-pdp>
   <div class="pdp__gallery">
-    {%- if p.media.size > 1 -%}
-      {%- comment -%} Small preview thumbnails (added) — quick-jump to each photo without scrolling the whole gallery. {%- endcomment -%}
-      <div class="pdp__thumbs" role="list" aria-label="Photo previews">
-        {%- for m in p.media -%}
-          <a href="#pdp-shot-{{ forloop.index }}" class="pdp__thumb{% if forloop.first %} is-active{% endif %}" aria-label="View photo {{ forloop.index }} of {{ p.media.size }}">
-            <img src="{{ m.preview_image | image_url: width: 160 }}" alt="" width="64" height="64" loading="lazy">
-          </a>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
     {%- if p.media.size > 0 -%}
       {%- for m in p.media -%}
-        <div class="pdp__shot" id="pdp-shot-{{ forloop.index }}">
+        <div class="pdp__shot">
           <img src="{{ m.preview_image | image_url: width: 1400 }}"
                srcset="{{ m.preview_image | image_url: width: 600 }} 600w, {{ m.preview_image | image_url: width: 1000 }} 1000w, {{ m.preview_image | image_url: width: 1500 }} 1500w"
                sizes="(max-width:880px) 100vw, 55vw"
@@ -45,6 +35,21 @@
       {%- if p.compare_at_price > p.price -%}<s>{% render 'price', price: p.compare_at_price %}</s>{%- endif -%}
       {% render 'price', price: p.price %}
     </span>
+
+    {%- comment -%} Small preview images (added) — click one to open the full photo in a lightbox, right here, no scrolling. {%- endcomment -%}
+    {%- if p.media.size > 1 -%}
+      <div class="pdp__previews" role="list" aria-label="Photo previews">
+        {%- for m in p.media -%}
+          <button type="button" class="pdp__preview{% if forloop.first %} is-active{% endif %}"
+                  data-preview-trigger
+                  data-preview-src="{{ m.preview_image | image_url: width: 1600 }}"
+                  data-preview-alt="{{ m.alt | escape }}"
+                  aria-label="Preview photo {{ forloop.index }} of {{ p.media.size }}">
+            <img src="{{ m.preview_image | image_url: width: 160 }}" alt="" width="56" height="56" loading="lazy">
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
     {%- if p.available -%}
       {% form 'product', p %}
@@ -144,6 +149,19 @@
 </div>
 
 {% render 'size-guide-modal' %}
+
+{%- comment -%} Photo lightbox (added) — opened by the preview thumbnails above. {%- endcomment -%}
+{%- if p.media.size > 1 -%}
+  <div class="lightbox" data-lightbox hidden>
+    <div class="lightbox__backdrop" data-lightbox-close></div>
+    <div class="lightbox__panel">
+      <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close">&times;</button>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" data-lightbox-prev aria-label="Previous photo">&lsaquo;</button>
+      <img src="" alt="" data-lightbox-img>
+      <button type="button" class="lightbox__nav lightbox__nav--next" data-lightbox-next aria-label="Next photo">&rsaquo;</button>
+    </div>
+  </div>
+{%- endif -%}
 
 {%- assign rel = collections[p.collections.first.handle].products | default: collections.all.products -%}
 {%- if rel.size > 1 -%}

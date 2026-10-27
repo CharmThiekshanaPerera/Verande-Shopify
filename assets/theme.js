@@ -216,28 +216,47 @@
     });
   }
 
-  /* ---------- PRODUCT GALLERY: highlight the active thumbnail as its photo scrolls into view (added) ---------- */
-  function pdpGallery() {
-    var thumbs = document.querySelectorAll('[data-pdp] .pdp__thumb');
-    var shots = document.querySelectorAll('[data-pdp] .pdp__shot[id]');
-    if (!thumbs.length || !shots.length) return;
-    thumbs.forEach(function (t) {
-      t.addEventListener('click', function () {
-        thumbs.forEach(function (x) { x.classList.remove('is-active'); });
-        t.classList.add('is-active');
-      });
+  /* ---------- PRODUCT PREVIEWS: click a small thumb to open it in a lightbox (added) ---------- */
+  function pdpLightbox() {
+    var triggers = Array.prototype.slice.call(document.querySelectorAll('[data-preview-trigger]'));
+    var box = document.querySelector('[data-lightbox]');
+    if (!triggers.length || !box) return;
+    var img = box.querySelector('[data-lightbox-img]');
+    var prevBtn = box.querySelector('[data-lightbox-prev]');
+    var nextBtn = box.querySelector('[data-lightbox-next]');
+    var closers = box.querySelectorAll('[data-lightbox-close]');
+    var idx = 0;
+
+    function show(i) {
+      idx = (i + triggers.length) % triggers.length;
+      var t = triggers[idx];
+      img.setAttribute('src', t.getAttribute('data-preview-src'));
+      img.setAttribute('alt', t.getAttribute('data-preview-alt') || '');
+      triggers.forEach(function (x) { x.classList.remove('is-active'); });
+      t.classList.add('is-active');
+    }
+    function open(i) {
+      show(i);
+      box.removeAttribute('hidden');
+      document.documentElement.style.overflow = 'hidden';
+    }
+    function close() {
+      box.setAttribute('hidden', '');
+      document.documentElement.style.overflow = '';
+    }
+
+    triggers.forEach(function (t, i) {
+      t.addEventListener('click', function () { open(i); });
     });
-    if (!('IntersectionObserver' in window)) return;
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        var idx = Array.prototype.indexOf.call(shots, en.target);
-        if (idx < 0 || !thumbs[idx]) return;
-        thumbs.forEach(function (x) { x.classList.remove('is-active'); });
-        thumbs[idx].classList.add('is-active');
-      });
-    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
-    shots.forEach(function (s) { io.observe(s); });
+    closers.forEach(function (c) { c.addEventListener('click', close); });
+    if (prevBtn) prevBtn.addEventListener('click', function () { show(idx - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { show(idx + 1); });
+    document.addEventListener('keydown', function (e) {
+      if (box.hasAttribute('hidden')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') show(idx - 1);
+      else if (e.key === 'ArrowRight') show(idx + 1);
+    });
   }
 
   /* ---------- PRODUCT: keep price (and low-stock note) in step with the chosen variant ---------- */
@@ -276,7 +295,7 @@
     });
   }
 
-  function init() { loader(); header(); heroSlides(); heroSplit(); productSlides(); campSlides(); rails(); railsAuto(); reveal(); marquee(); burger(); pdp(); pdpGallery(); recoverPassword(); }
+  function init() { loader(); header(); heroSlides(); heroSplit(); productSlides(); campSlides(); rails(); railsAuto(); reveal(); marquee(); burger(); pdp(); pdpLightbox(); recoverPassword(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
