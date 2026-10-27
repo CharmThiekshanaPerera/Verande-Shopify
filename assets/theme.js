@@ -195,6 +195,14 @@
     });
   }
 
+  /* ---------- CUSTOMER LOGIN: auto-open the "Forgot password" panel Shopify redirects back to (added) ---------- */
+  function recoverPassword() {
+    var d = document.getElementById('recover');
+    if (!d || window.location.hash !== '#recover') return;
+    d.setAttribute('open', '');
+    d.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  }
+
   /* ---------- MOBILE NAV ---------- */
   function burger() {
     var b = document.querySelector('[data-burger]');
@@ -268,7 +276,7 @@
     });
   }
 
-  function init() { loader(); header(); heroSlides(); heroSplit(); productSlides(); campSlides(); rails(); railsAuto(); reveal(); marquee(); burger(); pdp(); pdpGallery(); }
+  function init() { loader(); header(); heroSlides(); heroSplit(); productSlides(); campSlides(); rails(); railsAuto(); reveal(); marquee(); burger(); pdp(); pdpGallery(); recoverPassword(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

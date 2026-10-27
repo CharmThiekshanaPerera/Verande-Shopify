@@ -1,8 +1,42 @@
 <div class="page-head">
   <h1 class="page-head__t">{{ order.name }}</h1>
-  <div class="page-head__meta"><span class="mono-sm">{{ order.created_at | date: '%d.%m.%Y' }}</span></div>
+  <div class="page-head__meta">
+    <span class="mono-sm">{{ order.created_at | date: '%d.%m.%Y' }}</span>
+    <span class="mono-sm">{{ order.financial_status | capitalize }}</span>
+    {%- if order.fulfillment_status != blank -%}
+      <span class="mono-sm">{{ order.fulfillment_status | capitalize }}</span>
+    {%- endif -%}
+  </div>
 </div>
 <div class="wrap" style="padding-bottom:var(--sec)">
+
+  {%- comment -%} Shipment tracking (added) — this is the whole point of the page for a customer checking on an order. {%- endcomment -%}
+  {%- if order.fulfillments.size > 0 -%}
+    {%- for f in order.fulfillments -%}
+      <div class="cart__row" style="grid-template-columns:1fr auto;align-items:center">
+        <div>
+          <div class="cart__n">
+            Shipment {{ forloop.index }}{% if f.tracking_company != blank %} — {{ f.tracking_company }}{% endif %}
+          </div>
+          <div class="cart__v mono-sm">
+            {%- if f.tracking_number != blank -%}
+              Tracking no. {{ f.tracking_number }}
+            {%- else -%}
+              Dispatched {{ f.created_at | date: '%d.%m.%Y' }}
+            {%- endif -%}
+          </div>
+        </div>
+        {%- if f.tracking_url != blank -%}
+          <a href="{{ f.tracking_url }}" class="btn" target="_blank" rel="noopener">Track package</a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  {%- else -%}
+    <div class="cart__row" style="grid-template-columns:1fr">
+      <p class="mono-sm muted">Your order is being prepared. We'll email tracking details as soon as it ships.</p>
+    </div>
+  {%- endif -%}
+
   {%- for line in order.line_items -%}
     <div class="cart__row" style="grid-template-columns:1fr auto">
       <div>
@@ -12,7 +46,17 @@
       <div class="mono">{{ line.final_line_price | money }}</div>
     </div>
   {%- endfor -%}
-  <div class="cart__foot">
+
+  {%- comment -%} Shipping address (added) {%- endcomment -%}
+  <div class="cart__foot" style="align-items:flex-start">
+    {%- if order.shipping_address -%}
+      <div>
+        <span class="pdp__lbl">Shipping to</span>
+        <div class="rte" style="margin-top:.6em">{{ order.shipping_address | format_address }}</div>
+      </div>
+    {%- else -%}
+      <div></div>
+    {%- endif -%}
     <div><span class="pdp__lbl">Total</span><div class="cart__total">{{ order.total_price | money }}</div></div>
   </div>
 </div>

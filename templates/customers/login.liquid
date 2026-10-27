@@ -8,6 +8,26 @@
     <div class="news__form" style="margin-bottom:2.4em"><input type="password" name="customer[password]"></div>
     <button type="submit" class="btn btn--block">{{ 'customer.login' | t }}</button>
   {% endform %}
+
+  {%- comment -%} Forgot password (added) — native <details> toggle, no extra JS needed for show/hide; theme.js just auto-opens it after Shopify redirects back here with #recover. {%- endcomment -%}
+  <div class="acc" style="margin-top:1.6em">
+    <details class="acc__i" id="recover">
+      <summary class="acc__b" style="justify-content:center">Forgot your password?</summary>
+      <div class="acc__c">
+        {% form 'recover_customer_password' %}
+          {%- if form.posted_successfully? -%}
+            <p class="mono" style="color:var(--clay)">If an account exists for that email, we've sent a password reset link.</p>
+          {%- else -%}
+            {{ form.errors | default_errors }}
+            <span class="pdp__lbl">{{ 'customer.email' | t }}</span>
+            <div class="news__form" style="margin-bottom:1.6em"><input type="email" name="email" required></div>
+            <button type="submit" class="btn btn--block">Send reset link</button>
+          {%- endif -%}
+        {% endform %}
+      </div>
+    </details>
+  </div>
+
   <p class="mono-sm center" style="margin-top:2em">
     <a href="{{ routes.account_register_url }}" class="lnk">{{ 'customer.register' | t }}</a>
   </p>

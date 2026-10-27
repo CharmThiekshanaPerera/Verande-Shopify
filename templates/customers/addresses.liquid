@@ -1,11 +1,92 @@
 <div class="page-head"><h1 class="page-head__t">{{ 'customer.addresses' | t }}</h1></div>
-<div class="wrap" style="padding-bottom:var(--sec)">
-  {%- paginate customer.addresses by 6 -%}
-    {%- for address in customer.addresses -%}
-      <div class="cart__row" style="grid-template-columns:1fr auto">
-        <div class="rte">{{ address | format_address }}</div>
+<div class="wrap" style="max-width:620px;margin-inline:auto;padding-bottom:var(--sec)">
+
+  {%- comment -%} Add a new address (added) {%- endcomment -%}
+  <div class="acc" style="margin-bottom:2.4em">
+    <details class="acc__i">
+      <summary class="acc__b">Add a new address</summary>
+      <div class="acc__c">
+        {% form 'customer_address', customer.new_address %}
+          {{ form.errors | default_errors }}
+          <span class="pdp__lbl">First name</span>
+          <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[first_name]" value="{{ form.first_name }}"></div>
+          <span class="pdp__lbl">Last name</span>
+          <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[last_name]" value="{{ form.last_name }}"></div>
+          <span class="pdp__lbl">Address</span>
+          <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[address1]" value="{{ form.address1 }}" required></div>
+          <span class="pdp__lbl">Apartment, suite, etc. (optional)</span>
+          <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[address2]" value="{{ form.address2 }}"></div>
+          <span class="pdp__lbl">City</span>
+          <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[city]" value="{{ form.city }}" required></div>
+          <span class="pdp__lbl">Country</span>
+          <div class="news__form" style="margin-bottom:1.4em">
+            <select name="address[country]" class="pdp__select" style="width:100%;background:none;border:0;border-bottom:1px solid var(--ink);padding:.8em 0;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.08em;font-size:12px">{{ country_option_tags }}</select>
+          </div>
+          <span class="pdp__lbl">State / Province</span>
+          <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[province]" value="{{ form.province }}"></div>
+          <span class="pdp__lbl">Postal / ZIP code</span>
+          <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[zip]" value="{{ form.zip }}"></div>
+          <span class="pdp__lbl">Phone</span>
+          <div class="news__form" style="margin-bottom:1.8em"><input type="tel" name="address[phone]" value="{{ form.phone }}"></div>
+          <label class="mono-sm" style="display:flex;align-items:center;gap:.6em;margin-bottom:1.8em;text-transform:none;letter-spacing:.02em">
+            <input type="checkbox" name="address[default]" {% if customer.addresses.size == 0 %}checked{% endif %}> Set as default address
+          </label>
+          <button type="submit" class="btn btn--block">Save address</button>
+        {% endform %}
       </div>
-    {%- endfor -%}
+    </details>
+  </div>
+
+  {%- paginate customer.addresses by 10 -%}
+    {%- if customer.addresses.size > 0 -%}
+      {%- for address in customer.addresses -%}
+        <div class="cart__row" style="grid-template-columns:1fr;align-items:flex-start">
+          <div>
+            <div class="rte">{{ address | format_address }}</div>
+            {%- if address == customer.default_address -%}
+              <div class="mono-sm muted" style="margin-top:.5em">Default address</div>
+            {%- endif -%}
+            {%- comment -%} Edit / remove (added) {%- endcomment -%}
+            <details style="margin-top:1em">
+              <summary class="mono-sm" style="cursor:pointer;color:var(--clay);text-decoration:underline;text-underline-offset:3px;letter-spacing:.08em">Edit</summary>
+              <div style="margin-top:1.4em;max-width:420px">
+                {% form 'customer_address', address %}
+                  {{ form.errors | default_errors }}
+                  <span class="pdp__lbl">First name</span>
+                  <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[first_name]" value="{{ form.first_name }}"></div>
+                  <span class="pdp__lbl">Last name</span>
+                  <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[last_name]" value="{{ form.last_name }}"></div>
+                  <span class="pdp__lbl">Address</span>
+                  <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[address1]" value="{{ form.address1 }}" required></div>
+                  <span class="pdp__lbl">Apartment, suite, etc. (optional)</span>
+                  <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[address2]" value="{{ form.address2 }}"></div>
+                  <span class="pdp__lbl">City</span>
+                  <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[city]" value="{{ form.city }}" required></div>
+                  <span class="pdp__lbl">Country</span>
+                  <div class="news__form" style="margin-bottom:1.4em">
+                    <select name="address[country]" class="pdp__select" style="width:100%;background:none;border:0;border-bottom:1px solid var(--ink);padding:.8em 0;font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.08em;font-size:12px">{{ country_option_tags }}</select>
+                  </div>
+                  <span class="pdp__lbl">State / Province</span>
+                  <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[province]" value="{{ form.province }}"></div>
+                  <span class="pdp__lbl">Postal / ZIP code</span>
+                  <div class="news__form" style="margin-bottom:1.4em"><input type="text" name="address[zip]" value="{{ form.zip }}"></div>
+                  <span class="pdp__lbl">Phone</span>
+                  <div class="news__form" style="margin-bottom:1.8em"><input type="tel" name="address[phone]" value="{{ form.phone }}"></div>
+                  <label class="mono-sm" style="display:flex;align-items:center;gap:.6em;margin-bottom:1.8em;text-transform:none;letter-spacing:.02em">
+                    <input type="checkbox" name="address[default]" {% if address == customer.default_address %}checked{% endif %}> Set as default address
+                  </label>
+                  <button type="submit" class="btn btn--block" style="margin-bottom:.8em">Update address</button>
+                  <button type="submit" name="_method" value="delete" class="btn btn--ghost btn--block" formnovalidate>Remove address</button>
+                {% endform %}
+              </div>
+            </details>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <div class="empty"><p class="mono">No saved addresses yet.</p></div>
+    {%- endif -%}
   {%- endpaginate -%}
+
   <p class="mono-sm" style="margin-top:2em"><a href="{{ routes.account_url }}" class="lnk">Back to account</a></p>
 </div>

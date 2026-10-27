@@ -11,10 +11,25 @@
 <div class="wrap" style="padding-bottom:var(--sec)">
   {%- if customer.orders.size > 0 -%}
     {%- for order in customer.orders -%}
+      {%- comment -%} Tracking link, when a fulfillment has one (added) {%- endcomment -%}
+      {%- assign trk = blank -%}
+      {%- for f in order.fulfillments -%}
+        {%- if f.tracking_url != blank -%}{%- assign trk = f -%}{%- endif -%}
+      {%- endfor -%}
       <div class="cart__row" style="grid-template-columns:1fr auto">
         <div>
           <div class="cart__n"><a href="{{ order.customer_url }}">{{ order.name }}</a></div>
-          <div class="cart__v mono-sm">{{ order.created_at | date: '%d.%m.%Y' }} — {{ order.financial_status }}</div>
+          <div class="cart__v mono-sm">
+            {{ order.created_at | date: '%d.%m.%Y' }} — {{ order.financial_status | capitalize }}
+            {%- if order.fulfillment_status != blank and order.fulfillment_status != 'unfulfilled' -%}
+              · {{ order.fulfillment_status | capitalize }}
+            {%- endif -%}
+          </div>
+          {%- if trk != blank -%}
+            <div class="mono-sm" style="margin-top:.4em">
+              <a href="{{ trk.tracking_url }}" class="lnk" target="_blank" rel="noopener">Track package</a>
+            </div>
+          {%- endif -%}
         </div>
         <div class="mono">{{ order.total_price | money }}</div>
       </div>
