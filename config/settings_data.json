@@ -1,1 +1,69 @@
-{"current":{"color_bg":"#FAF6F0","color_bg_alt":"#F2EBE1","color_text":"#1A1714","color_muted":"#7E756A","color_line":"#E2D6C5","color_accent":"#A9714B","show_loader":true,"loader_word":"Verande","loader_left":"Colombo — Worldwide","loader_right":"Linen & Silk","price_style":"standard","footer_blurb":"Linen and silk, made in small batches in Colombo. Shipped worldwide."},"sections":{"footer":{"type":"footer","blocks":{"col1":{"type":"column","settings":{"heading":"SHOPDEBUG123","menu":"main-menu"}},"col2":{"type":"info","settings":{"heading":"Contact","body":"<p>For order, sizing or wholesale enquiries, write to us any time — we reply within a day or two.<\/p>"}},"col3":{"type":"info","settings":{"heading":"The Atelier","body":"<p>Hand-painted and cut in small batches, Colombo, Sri Lanka.<\/p>"}}},"block_order":["col1","col2","col3"],"settings":{"locale_note":"Colombo — Worldwide"}},"announcement-bar":{"type":"announcement-bar","settings":{"text":"Worldwide shipping — Europe, the Americas, Australia & the Middle East","link_text":"Shop New In","link_url":"\/collections\/new-in"}}}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "color_bg": "#FAF6F0",
+    "color_bg_alt": "#F2EBE1",
+    "color_text": "#1A1714",
+    "color_muted": "#7E756A",
+    "color_line": "#E2D6C5",
+    "color_accent": "#A9714B",
+    "show_loader": true,
+    "loader_word": "Verande",
+    "loader_left": "Colombo — Worldwide",
+    "loader_right": "Linen & Silk",
+    "price_style": "standard",
+    "footer_blurb": "Linen and silk, made in small batches in Colombo. Shipped worldwide."
+  },
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "col1": {
+          "type": "column",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "col2": {
+          "type": "info",
+          "settings": {
+            "heading": "Contact",
+            "body": "<p>For order, sizing or wholesale enquiries, write to us any time — we reply within a day or two.</p>"
+          }
+        },
+        "col3": {
+          "type": "info",
+          "settings": {
+            "heading": "The Atelier",
+            "body": "<p>Hand-painted and cut in small batches, Colombo, Sri Lanka.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "col1",
+        "col2",
+        "col3"
+      ],
+      "settings": {
+        "locale_note": "Colombo — Worldwide"
+      }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Worldwide shipping — Europe, the Americas, Australia & the Middle East",
+        "link_text": "Shop New In",
+        "link_url": "/collections/new-in"
+      }
+    }
+  }
+}
