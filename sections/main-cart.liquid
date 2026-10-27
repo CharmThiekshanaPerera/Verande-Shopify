@@ -1,41 +1,64 @@
 <div class="cart" data-cart data-section-id="{{ section.id }}">
-  <h1 class="page-head__t" style="margin-bottom:clamp(24px,4vw,52px)">{{ 'cart.title' | t }}</h1>
+  <div class="cart__head">
+    <h1 class="page-head__t cart__head-t">{{ 'cart.title' | t }}</h1>
+    {%- if cart.item_count > 0 -%}
+      <span class="mono-sm muted cart__count">{{ cart.item_count }} {% if cart.item_count == 1 %}item{% else %}items{% endif %}</span>
+    {%- endif -%}
+    <a href="{{ routes.all_products_collection_url }}" class="lnk cart__continue">{{ 'cart.continue' | t }}</a>
+  </div>
 
   {%- if cart.item_count > 0 -%}
     <form action="{{ routes.cart_url }}" method="post" novalidate>
-      {%- for item in cart.items -%}
-        <div class="cart__row" data-cart-row data-key="{{ item.key }}">
-          <a href="{{ item.url }}" class="cart__thumb">
-            {%- if item.image -%}
-              <img src="{{ item.image | image_url: width: 260 }}" alt="{{ item.title | escape }}" width="260" height="347" loading="lazy">
-            {%- else -%}
-              <div class="ph ph-{{ forloop.index0 | modulo: 6 | plus: 1 }}" data-ph=""></div>
-            {%- endif -%}
-          </a>
-          <div>
-            <div class="cart__n"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
-            {%- unless item.variant.title contains 'Default' -%}
-              <div class="cart__v mono-sm par">{{ item.variant.title }}</div>
-            {%- endunless -%}
-            {%- comment -%} Real quantity stepper (added) — was a static number before, with no way to change it except remove-and-re-add. {%- endcomment -%}
-            <div class="cart__qty" data-qty-stepper>
-              <button type="button" class="cart__qty-btn" data-qty-down aria-label="Decrease quantity">&minus;</button>
-              <span data-qty-value>{{ item.quantity }}</span>
-              <button type="button" class="cart__qty-btn" data-qty-up aria-label="Increase quantity">&plus;</button>
+      <div class="cart__list">
+        {%- for item in cart.items -%}
+          <div class="cart__row" data-cart-row data-key="{{ item.key }}">
+            <a href="{{ item.url }}" class="cart__thumb">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 260 }}" alt="{{ item.title | escape }}" width="260" height="347" loading="lazy">
+              {%- else -%}
+                <div class="ph ph-{{ forloop.index0 | modulo: 6 | plus: 1 }}" data-ph=""></div>
+              {%- endif -%}
+            </a>
+            <div>
+              <div class="cart__n"><a href="{{ item.url }}">{{ item.product.title }}</a></div>
+              {%- unless item.variant.title contains 'Default' -%}
+                <span class="cart__v-tag mono-sm">{{ item.variant.title }}</span>
+              {%- endunless -%}
+              <div class="cart__qty" data-qty-stepper>
+                <button type="button" class="cart__qty-btn" data-qty-down aria-label="Decrease quantity">&minus;</button>
+                <span data-qty-value>{{ item.quantity }}</span>
+                <button type="button" class="cart__qty-btn" data-qty-up aria-label="Increase quantity">&plus;</button>
+              </div>
+              {%- if item.quantity > 1 -%}
+                <p class="cart__unit mono-sm muted">{% render 'price', price: item.final_price %} {{ 'cart.each' | t }}</p>
+              {%- endif -%}
+              <button type="button" class="cart__remove mono-sm" data-cart-remove>{{ 'cart.remove' | t }}</button>
             </div>
-            <button type="button" class="cart__remove mono-sm" data-cart-remove>{{ 'cart.remove' | t }}</button>
+            <div class="mono cart__line-price">{% render 'price', price: item.final_line_price %}</div>
           </div>
-          <div class="mono" style="text-align:right">{% render 'price', price: item.final_line_price %}</div>
-        </div>
-      {%- endfor -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="acc cart__note-acc">
+        <details class="acc__i">
+          <summary class="acc__b"><span>{{ 'cart.note' | t }}</span></summary>
+          <div class="acc__c">
+            <textarea name="note" rows="3" class="cart__note" placeholder="{{ 'cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+          </div>
+        </details>
+      </div>
 
       <div class="cart__foot">
         <div>
           <span class="pdp__lbl">{{ 'cart.subtotal' | t }}</span>
           <div class="cart__total">{% render 'price', price: cart.total_price %}</div>
           <p class="mono-sm muted" style="margin-top:1em">{{ 'cart.taxes_note' | t }}</p>
+          <ul class="cart__trust">
+            <li>{{ 'cart.worldwide' | t }}</li>
+            <li>{{ 'cart.secure' | t }}</li>
+          </ul>
         </div>
-        <button type="submit" name="checkout" class="btn">{{ 'cart.checkout' | t }}</button>
+        <button type="submit" name="checkout" class="btn cart__checkout">{{ 'cart.checkout' | t }}</button>
       </div>
     </form>
   {%- else -%}

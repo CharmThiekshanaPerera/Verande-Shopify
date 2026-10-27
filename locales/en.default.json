@@ -43,6 +43,10 @@
     "checkout": "Checkout",
     "remove": "Remove",
     "note": "Order note",
+    "note_placeholder": "Add a note for your order — a delivery instruction, a gift message, anything else we should know.",
+    "each": "each",
+    "worldwide": "Shipped worldwide from Colombo",
+    "secure": "Secure checkout",
     "taxes_note": "Shipping and taxes calculated at checkout."
   },
   "collections": {
