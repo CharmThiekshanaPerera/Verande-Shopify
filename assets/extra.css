@@ -232,6 +232,17 @@
   .card__qa-btn{font-size:11px;padding:.7em 0}
 }
 
+/* ---------- CART: quantity stepper + remove link, and a busy state while it updates (added) ---------- */
+.cart__qty-btn{background:none;border:0;cursor:pointer;color:var(--ink);font-family:var(--f-mono);
+  font-size:15px;line-height:1;padding:.45em .85em;transition:opacity .3s var(--e)}
+.cart__qty-btn:hover{opacity:.6}
+.cart__qty-btn:disabled{opacity:.3;cursor:not-allowed}
+.cart__remove{display:inline-block;margin-top:.9em;background:none;border:0;padding:0;cursor:pointer;
+  font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.09em;font-size:11px;color:var(--stone);
+  text-decoration:underline;text-underline-offset:3px;transition:color .3s var(--e)}
+.cart__remove:hover{color:var(--clay)}
+.cart.is-busy{opacity:.55;pointer-events:none;transition:opacity .25s var(--e)}
+
 /* ---------- WHATSAPP BUTTON (added) ---------- */
 .wa-btn{position:fixed;right:18px;bottom:18px;z-index:70;width:52px;height:52px;border-radius:50%;
   background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 4px 18px rgba(0,0,0,.28);

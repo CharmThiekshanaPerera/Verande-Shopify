@@ -331,6 +331,54 @@
     });
   }
 
+  /* ---------- CART PAGE: quantity +/- and remove, updated in place (added) ---------- */
+  function cartQuantity() {
+    var root = document.querySelector('[data-cart]');
+    if (!root) return;
+    var sectionId = root.getAttribute('data-section-id') || 'main';
+    var busy = false;
+
+    function apply(key, quantity) {
+      if (busy) return;
+      busy = true;
+      root.classList.add('is-busy');
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ id: key, quantity: quantity })
+      })
+        .then(function () { return fetch('/cart?section_id=' + sectionId); })
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var fresh = doc.querySelector('[data-cart]');
+          if (fresh && root.parentNode) {
+            root.parentNode.replaceChild(fresh, root);
+            refreshCartCount();
+            cartQuantity();
+          } else {
+            root.classList.remove('is-busy');
+          }
+        })
+        .catch(function () { root.classList.remove('is-busy'); })
+        .then(function () { busy = false; });
+    }
+
+    root.addEventListener('click', function (e) {
+      var row = e.target.closest('[data-cart-row]');
+      if (!row) return;
+      var key = row.getAttribute('data-key');
+      if (e.target.closest('[data-cart-remove]')) { e.preventDefault(); apply(key, 0); return; }
+      var up = e.target.closest('[data-qty-up]');
+      var down = e.target.closest('[data-qty-down]');
+      if (!up && !down) return;
+      e.preventDefault();
+      var valEl = row.querySelector('[data-qty-value]');
+      var current = parseInt(valEl.textContent, 10) || 1;
+      apply(key, up ? current + 1 : Math.max(0, current - 1));
+    });
+  }
+
   /* ---------- PRODUCT: keep price (and low-stock note) in step with the chosen variant ---------- */
   function pdp() {
     var root = document.querySelector('[data-pdp]');
@@ -367,7 +415,7 @@
     });
   }
 
-  function init() { loader(); header(); heroSlides(); heroSplit(); productSlides(); campSlides(); rails(); railsAuto(); reveal(); marquee(); burger(); pdp(); pdpLightbox(); recoverPassword(); quickAdd(); }
+  function init() { loader(); header(); heroSlides(); heroSplit(); productSlides(); campSlides(); rails(); railsAuto(); reveal(); marquee(); burger(); pdp(); pdpLightbox(); recoverPassword(); quickAdd(); cartQuantity(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
