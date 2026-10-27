@@ -205,6 +205,33 @@
 /* ---------- FILM SECTION: cover the whole section with its background video, same as the background image (added) ---------- */
 .film__media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
+/* ---------- PRODUCT CARD: hover lift + shadow for a more tactile grid (added) ---------- */
+.card{transition:transform .35s var(--e)}
+.card__media{transition:box-shadow .35s var(--e)}
+@media(hover:hover){
+  .card:hover{transform:translateY(-3px)}
+  .card:hover .card__media{box-shadow:0 14px 32px rgba(20,18,15,.14)}
+}
+
+/* ---------- PRODUCT CARD: sizes as real buttons + Quick add (added) ---------- */
+.card__sizes{flex-wrap:wrap}
+.card__size{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.1em;font-size:11.5px;
+  color:var(--stone);background:none;border:1px solid color-mix(in srgb,var(--ink) 16%,transparent);
+  padding:.35em .7em;cursor:pointer;transition:color .3s var(--e),border-color .3s var(--e),background-color .3s var(--e)}
+.card__size:hover:not(:disabled){color:var(--ink);border-color:var(--ink)}
+.card__size.is-selected{color:var(--ivory);background:var(--ink);border-color:var(--ink)}
+.card__size.is-out,.card__size:disabled{text-decoration:line-through;opacity:.4;cursor:not-allowed}
+.card__qa-btn{display:block;width:100%;margin-top:.6em;padding:.75em 0;
+  font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.11em;font-size:11.5px;
+  color:var(--ink);background:none;border:1px solid color-mix(in srgb,var(--ink) 30%,transparent);
+  cursor:pointer;transition:background-color .3s var(--e),color .3s var(--e),border-color .3s var(--e)}
+.card__qa-btn:hover{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.card__qa-btn.is-loading{opacity:.6;cursor:wait}
+.card__qa-btn.is-done{background:var(--clay);border-color:var(--clay);color:var(--ivory)}
+@media(max-width:640px){
+  .card__qa-btn{font-size:11px;padding:.7em 0}
+}
+
 /* ---------- WHATSAPP BUTTON (added) ---------- */
 .wa-btn{position:fixed;right:18px;bottom:18px;z-index:70;width:52px;height:52px;border-radius:50%;
   background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 4px 18px rgba(0,0,0,.28);

@@ -259,6 +259,78 @@
     });
   }
 
+  /* ---------- CART COUNT: keep every bag indicator on the page in sync (added) ---------- */
+  function refreshCartCount() {
+    fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+      .then(function (r) { return r.json(); })
+      .then(function (cart) {
+        document.querySelectorAll('[data-cart-count]').forEach(function (el) { el.textContent = cart.item_count; });
+        document.querySelectorAll('[data-cart-badge]').forEach(function (el) {
+          el.textContent = cart.item_count;
+          el.hidden = cart.item_count === 0;
+        });
+      })
+      .catch(function () {});
+  }
+
+  /* ---------- QUICK ADD: pick a size on a product card, add it to the bag without leaving the page (added) ---------- */
+  function quickAdd() {
+    document.querySelectorAll('[data-quick-add]').forEach(function (card) {
+      var btn = card.querySelector('[data-quick-add-btn]');
+      var sizeBtns = Array.prototype.slice.call(card.querySelectorAll('[data-qa-size]'));
+      if (!btn || !sizeBtns.length) return;
+      var selected = null;
+      var idleLabel = btn.getAttribute('data-label-add') || '+ Quick add';
+
+      function pick(b) {
+        if (!b || b.disabled) return;
+        sizeBtns.forEach(function (x) { x.classList.remove('is-selected'); });
+        b.classList.add('is-selected');
+        selected = b;
+      }
+      sizeBtns.forEach(function (b) {
+        if (!b.disabled && !selected) pick(b);
+        b.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          pick(b);
+        });
+      });
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!selected || selected.disabled || btn.classList.contains('is-loading')) return;
+        var variantId = selected.getAttribute('data-variant-id');
+        btn.classList.add('is-loading');
+        btn.classList.remove('is-done');
+        btn.textContent = 'Adding…';
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ id: variantId, quantity: 1 })
+        })
+          .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+          .then(function (res) {
+            btn.classList.remove('is-loading');
+            if (!res.ok) throw new Error((res.data && res.data.description) || 'Could not add to bag');
+            btn.classList.add('is-done');
+            btn.textContent = 'Added ✓';
+            refreshCartCount();
+            setTimeout(function () {
+              btn.classList.remove('is-done');
+              btn.textContent = idleLabel;
+            }, 1800);
+          })
+          .catch(function () {
+            btn.classList.remove('is-loading');
+            btn.textContent = 'Sold out';
+            setTimeout(function () { btn.textContent = idleLabel; }, 1800);
+          });
+      });
+    });
+  }
+
   /* ---------- PRODUCT: keep price (and low-stock note) in step with the chosen variant ---------- */
   function pdp() {
     var root = document.querySelector('[data-pdp]');
@@ -295,7 +367,7 @@
     });
   }
 
-  function init() { loader(); header(); heroSlides(); heroSplit(); productSlides(); campSlides(); rails(); railsAuto(); reveal(); marquee(); burger(); pdp(); pdpLightbox(); recoverPassword(); }
+  function init() { loader(); header(); heroSlides(); heroSplit(); productSlides(); campSlides(); rails(); railsAuto(); reveal(); marquee(); burger(); pdp(); pdpLightbox(); recoverPassword(); quickAdd(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
