@@ -1,7 +1,17 @@
-<div class="page-head">
-  <h1 class="page-head__t">{{ page.title }}</h1>
-</div>
-<div class="wrap" style="padding-bottom:var(--sec)">
-  <div class="rte">{{ page.content }}</div>
-</div>
+{%- if page.handle == 'contact' -%}
+  <div class="page-head">
+    <h1 class="page-head__t">{{ page.title }}</h1>
+  </div>
+  <div class="contact-top wrap">
+    <div class="contact-top__copy rte" data-rv>{{ page.content }}</div>
+    <div class="contact-top__media ph ph-3" data-ph="STUDIO — COLOMBO" data-rv="90"></div>
+  </div>
+{%- else -%}
+  <div class="page-head">
+    <h1 class="page-head__t">{{ page.title }}</h1>
+  </div>
+  <div class="wrap" style="padding-bottom:var(--sec)">
+    <div class="rte">{{ page.content }}</div>
+  </div>
+{%- endif -%}
 {% schema %}{ "name": "Page" }{% endschema %}

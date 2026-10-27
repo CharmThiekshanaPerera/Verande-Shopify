@@ -1,26 +1,58 @@
-<section class="news" style="max-width:640px;margin:0 auto;">
-  <h2 class="news__t" data-rv>{{ section.settings.title }}</h2>
-  <p class="news__p mono" data-rv="90">{{ section.settings.sub }}</p>
-  {% form 'contact', class: 'news__form-wrap' %}
-    {%- if form.posted_successfully? -%}
-      <p class="mono" style="color:var(--clay)">{{ section.settings.success }}</p>
-    {%- else -%}
-      {%- if form.errors -%}
-        <ul class="mono-sm" style="color:var(--clay);margin-bottom:1em">
-          {%- for field in form.errors -%}
-            <li>{{ form.errors.messages[field] }}</li>
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-      <div class="news__form" style="flex-direction:column;align-items:stretch;gap:1em;">
-        <input type="text" name="contact[name]" placeholder="{{ 'general.contact_name' | t: default: 'Name' }}" aria-label="Name" value="{% if form.name %}{{ form.name }}{% endif %}">
-        <input type="email" name="contact[email]" required placeholder="{{ 'general.contact_email' | t: default: 'Email' }}" aria-label="Email" value="{% if form.email %}{{ form.email }}{% endif %}">
-        <input type="tel" name="contact[phone]" placeholder="{{ 'general.contact_phone' | t: default: 'Phone (optional)' }}" aria-label="Phone" value="{% if form.phone %}{{ form.phone }}{% endif %}">
-        <textarea name="contact[body]" rows="6" required placeholder="{{ 'general.contact_message' | t: default: 'Message' }}" aria-label="Message">{% if form.body %}{{ form.body }}{% endif %}</textarea>
-        <button type="submit">{{ section.settings.submit_label }}</button>
-      </div>
-    {%- endif -%}
-  {% endform %}
+<section class="contact-cta">
+  <div class="contact-cta__grid wrap">
+    <div class="contact-cta__info" data-rv>
+      <h2 class="news__t" style="text-align:left;margin-bottom:.3em">{{ section.settings.title }}</h2>
+      <p class="mono contact-cta__sub">{{ section.settings.sub }}</p>
+
+      <ul class="contact-cta__list">
+        <li>
+          <span class="mono-sm muted">Email</span>
+          <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+        </li>
+        <li>
+          <span class="mono-sm muted">Studio</span>
+          <span>Colombo, Sri Lanka — shipping worldwide</span>
+        </li>
+        <li>
+          <span class="mono-sm muted">Response time</span>
+          <span>Within a day or two</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="contact-cta__form-wrap" data-rv="90">
+      {% form 'contact', class: 'contact-form' %}
+        {%- if form.posted_successfully? -%}
+          <p class="mono" style="color:var(--clay)">{{ section.settings.success }}</p>
+        {%- else -%}
+          {%- if form.errors -%}
+            <ul class="mono-sm" style="color:var(--clay);margin-bottom:1.4em">
+              {%- for field in form.errors -%}
+                <li>{{ form.errors.messages[field] }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          <div class="contact-form__row">
+            <label class="mono-sm muted" for="ContactFormName">{{ 'general.contact_name' | t }}</label>
+            <input type="text" id="ContactFormName" name="contact[name]" value="{% if form.name %}{{ form.name }}{% endif %}">
+          </div>
+          <div class="contact-form__row">
+            <label class="mono-sm muted" for="ContactFormEmail">{{ 'general.contact_email' | t }}</label>
+            <input type="email" id="ContactFormEmail" name="contact[email]" required value="{% if form.email %}{{ form.email }}{% endif %}">
+          </div>
+          <div class="contact-form__row">
+            <label class="mono-sm muted" for="ContactFormPhone">{{ 'general.contact_phone' | t }}</label>
+            <input type="tel" id="ContactFormPhone" name="contact[phone]" value="{% if form.phone %}{{ form.phone }}{% endif %}">
+          </div>
+          <div class="contact-form__row">
+            <label class="mono-sm muted" for="ContactFormMessage">{{ 'general.contact_message' | t }}</label>
+            <textarea id="ContactFormMessage" name="contact[body]" rows="5" required>{% if form.body %}{{ form.body }}{% endif %}</textarea>
+          </div>
+          <button type="submit" class="btn btn--block">{{ section.settings.submit_label }}</button>
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
 </section>
 
 {% schema %}
