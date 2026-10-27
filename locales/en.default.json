@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "skip_to_content": "Skip to content",
@@ -11,7 +20,11 @@
     "see_all": "See all",
     "newsletter_placeholder": "Email address",
     "newsletter_submit": "Join",
-    "pagination": "Pagination"
+    "pagination": "Pagination",
+    "contact_name": "Name",
+    "contact_email": "Email",
+    "contact_phone": "Phone (optional)",
+    "contact_message": "Message"
   },
   "products": {
     "add_to_bag": "Add to bag",
