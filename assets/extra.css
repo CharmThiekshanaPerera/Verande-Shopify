@@ -317,11 +317,11 @@
 .cart__checkout{min-width:220px;text-align:center}
 @media(max-width:640px){.cart__checkout{width:100%}}
 
-/* ---------- NEWSLETTER: a quiet "Contact us" line under the signup form,
-   so the bottom of the homepage also offers a way to reach the shop
-   directly, not just the mailing list (added) ---------- */
-.news__contact{margin-top:2em;color:var(--stone)}
-.news__contact .lnk{margin-left:.4em}
+/* ---------- NEWSLETTER section: now a "Contact us" prompt instead of an
+   email signup — the form/mailing-list markup was removed from the
+   section entirely, this just gives its button a touch more presence
+   than the default inline .btn (updated) ---------- */
+.news .btn{margin-top:.4em}
 
 /* ---------- WHATSAPP BUTTON (added) ---------- */
 .wa-btn{position:fixed;right:18px;bottom:18px;z-index:70;width:52px;height:52px;border-radius:50%;
