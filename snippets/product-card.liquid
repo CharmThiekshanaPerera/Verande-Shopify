@@ -6,8 +6,13 @@
   elsif product.tags contains 'new'
     assign flag = 'New'
   endif
+  assign opt = product.options_with_values | first
+  assign show_qa = false
+  if product.available and opt and opt.values.size > 0 and product.has_only_default_variant == false
+    assign show_qa = true
+  endif
 -%}
-<article class="card{% if grid %} card--grid{% endif %}"{% unless no_reveal %} data-rv="{{ delay | default: 0 }}"{% endunless %}>
+<article class="card{% if grid %} card--grid{% endif %}"{% unless no_reveal %} data-rv="{{ delay | default: 0 }}"{% endunless %}{% if show_qa %} data-quick-add{% endif %}>
   <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
     <div class="card__media">
       {%- if flag != blank -%}<span class="card__flag">{{ flag }}</span>{%- endif -%}
@@ -36,10 +41,26 @@
       <span class="card__price">{% render 'price', price: product.price %}</span>
     {%- endunless -%}
   </div>
-  {%- assign opt = product.options_with_values | first -%}
   {%- if opt and opt.values.size > 0 and product.has_only_default_variant == false -%}
-    <div class="card__sizes">
-      {%- for v in opt.values limit: 6 -%}<span>({{ v }})</span>{%- endfor -%}
+    {%- comment -%} Sizes are now real buttons — pick one, then Quick add puts it straight in the bag (added) {%- endcomment -%}
+    <div class="card__sizes" role="list" aria-label="Sizes">
+      {%- for v in opt.values limit: 6 -%}
+        {%- assign vv = blank -%}
+        {%- for variant in product.variants -%}
+          {%- if variant.option1 == v -%}{%- assign vv = variant -%}{%- break -%}{%- endif -%}
+        {%- endfor -%}
+        {%- if vv != blank -%}
+          <button type="button" class="card__size{% unless vv.available %} is-out{% endunless %}"
+                  data-qa-size data-variant-id="{{ vv.id }}"
+                  {% unless vv.available %}disabled aria-disabled="true"{% endunless %}
+                  aria-label="Size {{ v }}{% unless vv.available %}, sold out{% endunless %}">{{ v }}</button>
+        {%- else -%}
+          <span class="card__size is-out" aria-hidden="true">{{ v }}</span>
+        {%- endif -%}
+      {%- endfor -%}
     </div>
+  {%- endif -%}
+  {%- if show_qa -%}
+    <button type="button" class="card__qa-btn" data-quick-add-btn data-label-add="+ Quick add" aria-label="Quick add {{ product.title | escape }} to bag">+ Quick add</button>
   {%- endif -%}
 </article>

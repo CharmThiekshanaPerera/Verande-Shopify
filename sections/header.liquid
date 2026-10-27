@@ -21,7 +21,7 @@
     {%- if shop.customer_accounts_enabled -%}
       <a href="{{ routes.account_url }}" class="u-hide-sm">{{ 'general.account' | t }}</a>
     {%- endif -%}
-    <a href="{{ routes.cart_url }}" class="u-hide-sm">{{ 'general.bag' | t }}&nbsp;({{ cart.item_count }})</a>
+    <a href="{{ routes.cart_url }}" class="u-hide-sm">{{ 'general.bag' | t }}&nbsp;(<span data-cart-count>{{ cart.item_count }}</span>)</a>
 
     {%- comment -%} Mobile-only icon row (added) — Milly-style: burger / centered mark / icons. {%- endcomment -%}
     <div class="hdr__icons">
@@ -41,7 +41,7 @@
         <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>
         </svg>
-        {%- if cart.item_count > 0 -%}<span class="hdr__icon-n">{{ cart.item_count }}</span>{%- endif -%}
+        <span class="hdr__icon-n" data-cart-badge{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
       </a>
     </div>
   </div>
