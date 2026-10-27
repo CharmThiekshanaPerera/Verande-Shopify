@@ -188,9 +188,10 @@
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "title": "<p>Small batches, <em>quietly announced</em></p>",
-        "sub": "A note when something new is cut. Nothing else.",
-        "success": "Thank you — you're on the list."
+        "title": "<p>Questions, <em>quietly answered</em></p>",
+        "sub": "Sizing, an order, a custom piece — we read every message.",
+        "contact_link_text": "Contact us",
+        "contact_url": "/pages/contact"
       }
     },
     "film_WqnJCV": {
