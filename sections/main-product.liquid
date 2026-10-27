@@ -7,9 +7,19 @@
 -%}
 <div class="pdp" data-pdp>
   <div class="pdp__gallery">
+    {%- if p.media.size > 1 -%}
+      {%- comment -%} Small preview thumbnails (added) — quick-jump to each photo without scrolling the whole gallery. {%- endcomment -%}
+      <div class="pdp__thumbs" role="list" aria-label="Photo previews">
+        {%- for m in p.media -%}
+          <a href="#pdp-shot-{{ forloop.index }}" class="pdp__thumb{% if forloop.first %} is-active{% endif %}" aria-label="View photo {{ forloop.index }} of {{ p.media.size }}">
+            <img src="{{ m.preview_image | image_url: width: 160 }}" alt="" width="64" height="64" loading="lazy">
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
     {%- if p.media.size > 0 -%}
       {%- for m in p.media -%}
-        <div class="pdp__shot">
+        <div class="pdp__shot" id="pdp-shot-{{ forloop.index }}">
           <img src="{{ m.preview_image | image_url: width: 1400 }}"
                srcset="{{ m.preview_image | image_url: width: 600 }} 600w, {{ m.preview_image | image_url: width: 1000 }} 1000w, {{ m.preview_image | image_url: width: 1500 }} 1500w"
                sizes="(max-width:880px) 100vw, 55vw"
@@ -50,6 +60,8 @@
               <label class="pdp__opt">
                 <input type="radio" name="id" value="{{ v.id }}"
                        data-price="{{ v.price }}"
+                       data-stock="{{ v.inventory_quantity }}"
+                       data-tracked="{% if v.inventory_management == 'shopify' %}1{% else %}0{% endif %}"
                        {% if v.available == false %}disabled{% endif %}
                        {% if v.id == p.selected_or_first_available_variant.id %}checked{% endif %}>
                 <span>{{ v.title }}</span>
@@ -64,7 +76,10 @@
           <div class="pdp__opts" style="width:100%">
             <select name="id" class="pdp__select" style="width:100%;padding:.8em 0;background:none;border:0;border-bottom:1px solid var(--ink);font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.11em;font-size:10.5px">
               {%- for v in p.variants -%}
-                <option value="{{ v.id }}" data-price="{{ v.price }}" {% unless v.available %}disabled{% endunless %}
+                <option value="{{ v.id }}" data-price="{{ v.price }}"
+                  data-stock="{{ v.inventory_quantity }}"
+                  data-tracked="{% if v.inventory_management == 'shopify' %}1{% else %}0{% endif %}"
+                  {% unless v.available %}disabled{% endunless %}
                   {% if v.id == p.selected_or_first_available_variant.id %}selected{% endif %}>
                   {{ v.title }}{% unless v.available %} — {{ 'products.sold_out' | t }}{% endunless %}
                 </option>
@@ -74,9 +89,11 @@
         {%- endif -%}
         <button type="submit" class="btn btn--block">{{ 'products.add_to_bag' | t }}</button>
       {% endform %}
+      {%- comment -%} Live low-stock note (added) — filled in and shown/hidden by theme.js as the shopper picks a size. {%- endcomment -%}
+      <p class="pdp__stock mono-sm" data-pdp-stock hidden></p>
       <ul class="pdp__secure mono-sm" aria-label="Secure checkout">
         <li>🔒 Secure encrypted checkout</li>
-        <li>↺ Exchanges within 7 days</li>
+        <li>🌍 Shipped worldwide from Colombo</li>
       </ul>
     {%- else -%}
       <button class="btn btn--block" disabled style="opacity:.4;cursor:not-allowed">{{ 'products.sold_out' | t }}</button>
@@ -161,8 +178,8 @@
         "body": "<p>Wash cold, line dry in shade, warm iron while slightly damp. Linen is meant to crease.</p>" } },
       { "type": "detail", "settings": { "heading": "Size & fit",
         "body": "<p>Cut generously. If you are between sizes, take the smaller one.</p>" } },
-      { "type": "detail", "settings": { "heading": "Shipping & returns",
-        "body": "<p>Shipped worldwide from Colombo. Returns accepted within 14 days, unworn.</p>" } }
+      { "type": "detail", "settings": { "heading": "Shipping",
+        "body": "<p>Shipped worldwide from Colombo — Europe, the Americas, Australia and the Middle East. Delivery time is shown at checkout once you enter your address.</p><p>All sales are final — we don't offer exchanges or returns, so please check sizing and details carefully before ordering.</p>" } }
     ]
   }
 }
