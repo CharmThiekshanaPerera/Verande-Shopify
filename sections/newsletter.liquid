@@ -17,6 +17,11 @@
       {%- endif -%}
     {%- endif -%}
   {% endform %}
+
+  <p class="news__contact mono-sm" data-rv="150">
+    {{ section.settings.contact_text }}
+    <a href="{{ section.settings.contact_url }}" class="lnk">{{ section.settings.contact_link_text }}</a>
+  </p>
 </section>
 
 {% schema %}
@@ -26,7 +31,10 @@
     { "type": "richtext", "id": "title", "label": "Heading",
       "default": "<p>Small batches, <em>quietly announced</em></p>" },
     { "type": "text", "id": "sub", "label": "Sub-line", "default": "A note when something new is cut. Nothing else." },
-    { "type": "text", "id": "success", "label": "Success message", "default": "Thank you — you're on the list." }
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thank you — you're on the list." },
+    { "type": "text", "id": "contact_text", "label": "Contact line text", "default": "Have a question instead?" },
+    { "type": "text", "id": "contact_link_text", "label": "Contact link label", "default": "Contact us" },
+    { "type": "text", "id": "contact_url", "label": "Contact link URL", "default": "/pages/contact" }
   ],
   "presets": [{ "name": "Newsletter" }]
 }
