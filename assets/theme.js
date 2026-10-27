@@ -117,6 +117,10 @@
       var down = false, sx = 0, sl = 0, moved = 0;
       r.addEventListener('pointerdown', function (e) {
         if (e.pointerType === 'touch') return;
+        /* Don't capture the pointer when the gesture starts on a link/button/field — capturing
+           unconditionally here was swallowing clicks on Quick add, size pills and product images
+           inside these rails (fixed). Dragging still works from anywhere else on the card. */
+        if (e.target.closest('a, button, input, select, textarea, label')) return;
         down = true; moved = 0; sx = e.clientX; sl = r.scrollLeft;
         r.setPointerCapture(e.pointerId);
       });

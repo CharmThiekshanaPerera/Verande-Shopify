@@ -213,23 +213,30 @@
   .card:hover .card__media{box-shadow:0 14px 32px rgba(20,18,15,.14)}
 }
 
-/* ---------- PRODUCT CARD: sizes as real buttons + Quick add (added) ---------- */
+/* ---------- PRODUCT CARD: sizes as light pills + a minimal Quick add link (updated) ---------- */
 .card__sizes{flex-wrap:wrap}
 .card__size{font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.1em;font-size:11.5px;
-  color:var(--stone);background:none;border:1px solid color-mix(in srgb,var(--ink) 16%,transparent);
-  padding:.35em .7em;cursor:pointer;transition:color .3s var(--e),border-color .3s var(--e),background-color .3s var(--e)}
+  color:var(--stone);background:none;border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
+  padding:.32em .65em;cursor:pointer;transition:color .3s var(--e),border-color .3s var(--e),background-color .3s var(--e)}
 .card__size:hover:not(:disabled){color:var(--ink);border-color:var(--ink)}
 .card__size.is-selected{color:var(--ivory);background:var(--ink);border-color:var(--ink)}
 .card__size.is-out,.card__size:disabled{text-decoration:line-through;opacity:.4;cursor:not-allowed}
-.card__qa-btn{display:block;width:100%;margin-top:.6em;padding:.75em 0;
-  font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.11em;font-size:11.5px;
-  color:var(--ink);background:none;border:1px solid color-mix(in srgb,var(--ink) 30%,transparent);
-  cursor:pointer;transition:background-color .3s var(--e),color .3s var(--e),border-color .3s var(--e)}
-.card__qa-btn:hover{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.card__qa-btn{display:inline-flex;align-items:center;margin-top:.6em;padding:.3em 0;
+  font-family:var(--f-mono);text-transform:uppercase;letter-spacing:.12em;font-size:11px;
+  color:var(--ink);background:none;border:0;border-bottom:1px solid color-mix(in srgb,var(--ink) 32%,transparent);
+  cursor:pointer;transition:color .3s var(--e),border-color .3s var(--e)}
+.card__qa-btn:hover{color:var(--clay);border-color:var(--clay)}
 .card__qa-btn.is-loading{opacity:.6;cursor:wait}
-.card__qa-btn.is-done{background:var(--clay);border-color:var(--clay);color:var(--ivory)}
-@media(max-width:640px){
-  .card__qa-btn{font-size:11px;padding:.7em 0}
+.card__qa-btn.is-done{color:var(--clay);border-color:var(--clay)}
+
+/* ---------- PRODUCT CARD: sizes + Quick add tucked away until the card is hovered, so the grid
+   reads clean by default — the full set (4 sizes + a button) sitting under every card at all times
+   was the "ugly / cluttered" look. Always visible on touch, since there is no hover there (added) ---------- */
+@media(hover:hover) and (pointer:fine){
+  .card__sizes,.card__qa-btn{opacity:0;transform:translateY(6px);pointer-events:none;
+    transition:opacity .35s var(--e),transform .35s var(--e)}
+  .card:hover .card__sizes,.card:focus-within .card__sizes,
+  .card:hover .card__qa-btn,.card:focus-within .card__qa-btn{opacity:1;transform:none;pointer-events:auto}
 }
 
 /* ---------- CART: quantity stepper + remove link, and a busy state while it updates (added) ---------- */
