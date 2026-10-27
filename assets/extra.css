@@ -317,6 +317,12 @@
 .cart__checkout{min-width:220px;text-align:center}
 @media(max-width:640px){.cart__checkout{width:100%}}
 
+/* ---------- NEWSLETTER: a quiet "Contact us" line under the signup form,
+   so the bottom of the homepage also offers a way to reach the shop
+   directly, not just the mailing list (added) ---------- */
+.news__contact{margin-top:2em;color:var(--stone)}
+.news__contact .lnk{margin-left:.4em}
+
 /* ---------- WHATSAPP BUTTON (added) ---------- */
 .wa-btn{position:fixed;right:18px;bottom:18px;z-index:70;width:52px;height:52px;border-radius:50%;
   background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 4px 18px rgba(0,0,0,.28);
